@@ -6,6 +6,7 @@ class Play <  Chingu::GameState
 
     self.terrain  = Terrain.new($window)
     self.input    = {
+      [:esc, :q]            => :exit,
       [:left, :a]           => proc { player.left; next_player },
       [:right, :d]          => proc { player.right; next_player },
       [:left_mouse_button]  => proc { player.try_fire(Gosu.angle(player.x, player.y, $window.mouse_x, $window.mouse_y)) and next_player }
