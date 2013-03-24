@@ -6,14 +6,7 @@ class Tank < Chingu::GameObject
   def setup
     self.rotation_center  = :bottom_center
     self.image = Gosu::Image["tank.png"]
-    self.color = ColorBank.instance.checkout # Gosu::Color.new(255,rand(255), rand(255), rand(255))
-  end
-
-  def self.destroy_all
-    Tank.all.each do |tank|
-      ColorBank.instance.deposit(tank.color)
-    end
-    super
+    self.color = ColorBank.instance.next # Gosu::Color.new(255,rand(255), rand(255), rand(255))
   end
 
   def move(x, y)
