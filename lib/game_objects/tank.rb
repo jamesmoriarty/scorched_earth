@@ -28,22 +28,24 @@ class Tank < Chingu::GameObject
   end
 
   def update
-    angles = []
     super
 
     if moved?
+      angles = []
       # TODO - refactor window out and optimize - this is slow.
       [4, 10, 15, 25].each do |offset|
         x1 = x - offset
+        next if x1 < 0
         y1 = $window.current_game_state.terrain.highest_collide_point(x1)
 
         x2 = x + offset
+        next if x2 >= $window.current_game_state.terrain.width
         y2 = $window.current_game_state.terrain.highest_collide_point(x2)
 
         angles << Gosu.angle(x1, y1, x2, y2)
       end
 
-      self.angle = 270 + (angles.inject(:+) / angles.size)
+      self.angle = 270 + (angles.inject(:+) / angles.size) unless angles.size == 0
     end
 
   end
