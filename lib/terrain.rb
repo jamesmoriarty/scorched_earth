@@ -43,7 +43,7 @@ class Terrain < Delegator
     image.get_pixel(x, y)[3] != 0 rescue false
   end
 
-  def hightest_collide_point(x)
+  def highest_collide_point(x)
     (0..height).to_a.each do |y|
       return y if collide_point?(x, y)
     end

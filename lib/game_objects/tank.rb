@@ -27,6 +27,19 @@ class Tank < Chingu::GameObject
     self.y = previous_y
   end
 
+  def update
+    x1 = x - 2
+    y1 = $window.current_game_state.terrain.highest_collide_point(x1)
+
+    x2 = x + 2
+    y2 = $window.current_game_state.terrain.highest_collide_point(x2)
+
+
+    self.angle = 270 +  Gosu.angle(x1, y1, x2, y2)
+
+    super
+  end
+
   def right
     during(1000){ self.velocity_x = 1 }.then{ self.velocity_x = 0 } if stopped?
   end

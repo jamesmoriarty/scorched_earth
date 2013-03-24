@@ -17,9 +17,9 @@ class Play <  Chingu::GameState
     Shot.destroy_all
     @current_player_index = 0
     x = $window.width/4*1
-    Tank.create(:x => x, :y => terrain.hightest_collide_point(x))
+    Tank.create(:x => x, :y => terrain.highest_collide_point(x))
     x = $window.width/4*3
-    Tank.create(:x => x, :y => terrain.hightest_collide_point(x))
+    Tank.create(:x => x, :y => terrain.highest_collide_point(x))
   end
 
   def update
