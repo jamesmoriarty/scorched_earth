@@ -4,11 +4,12 @@ class Shot < Chingu::GameObject
   def setup
     super
 
-    @image = Gosu::Image["particle.png"]
+    @image = Gosu::Image["shot.png"]
   end
 
   def update
     super
+    self.angle = Gosu.angle(x, y, x + velocity_x, y + velocity_y)
     Smoke.create(:x => x, :y => y)
   end
 

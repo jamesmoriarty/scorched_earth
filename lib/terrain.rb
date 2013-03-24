@@ -17,6 +17,7 @@ class Terrain
       while(x1 < window.width) do
         y1 = ( Math.sin(x1/window.width*cycles) * 100 ) + window.height/1.5
         line(x1, y1, x1, y2, :color => :green, :fill => true, :texture => Gosu::Image["terrain.png"])
+        line(x1, y1, x1, y1, :color => Gosu::Color.new(255, 75, 75, 75), :fill => true)
         x1 += 1.0
       end
     end

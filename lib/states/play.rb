@@ -4,12 +4,12 @@ class Play <  Chingu::GameState
   def initialize(options={})
     super
 
-    self.terrain = Terrain.new($window)
+    self.terrain  = Terrain.new($window)
     self.input    = {
-      [:q, :escape]                 => proc { switch_game_state(Menu) },
-      [:left, :a]   => proc { player.left; next_player },
-      [:right, :d]  => proc { player.right; next_player },
-      [:left_mouse_button]          => proc { player.try_fire(Gosu.angle(player.x, player.y, $window.mouse_x, $window.mouse_y)) and next_player }
+      [:q, :escape]         => proc { switch_game_state(Menu) },
+      [:left, :a]           => proc { player.left; next_player },
+      [:right, :d]          => proc { player.right; next_player },
+      [:left_mouse_button]  => proc { player.try_fire(Gosu.angle(player.x, player.y, $window.mouse_x, $window.mouse_y)) and next_player }
     }
   end
 
@@ -42,7 +42,7 @@ class Play <  Chingu::GameState
 
     super
 
-    pop_game_state if Tank.size < 2
+    push_game_state(GameOver) if Tank.size < 2
   end
 
   def draw
@@ -51,7 +51,7 @@ class Play <  Chingu::GameState
 
     super
 
-    if Tank.size > 0
+    if Tank.size > 0 && player
       draw_angle
       draw_pointer
     end
@@ -60,8 +60,16 @@ class Play <  Chingu::GameState
   protected
 
   def draw_angle
-    @font = Gosu::Font.new($window, "verdana", 30)
-    @font.draw("#{Gosu.angle(player.x, player.y, $window.mouse_x, $window.mouse_y).round}\xC2\xB0", player.x - player.width, player.y - player.height*2, 12, 1.0)
+    @font     = Gosu::Font.new($window, "verdana", 30)
+
+    text      = "#{Gosu.angle(player.x, player.y, $window.mouse_x, $window.mouse_y).round}\xC2\xB0"
+    x         = player.x - (@font.text_width(text)/2)
+    y         = player.y - player.height * 2
+    z         = 0
+    factor_x, factor_y = 1, 1
+    color     = Gosu::Color::BLACK
+
+    @font.draw(text, x, y, z, factor_x, factor_y, color)
   end
 
   def draw_pointer
