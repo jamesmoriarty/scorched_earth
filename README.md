@@ -1,6 +1,4 @@
-# chingu-template
-
-Simple template for a [Chingu](https://github.com/ippa/chingu) application.
+# scorched-earth-rb
 
 ![ScreenShot](https://raw.github.com/jamesmoriarty/chingu-template/master/doc/screenshot-01.jpg)
 
