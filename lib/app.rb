@@ -5,7 +5,7 @@ class App < Chingu::Window
   def initialize
     super(800, 600, false)
     retrofy
-    switch_game_state(Menu)
+    switch_game_state(Play)
     @cursor = true
   end
 

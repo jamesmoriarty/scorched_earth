@@ -1,4 +1,4 @@
-class Terrain
+class Terrain < Delegator
   attr_accessor :image
 
   def initialize(window)
@@ -21,6 +21,17 @@ class Terrain
         x1 += 1.0
       end
     end
+
+    @delegate_sd_obj = image
+  end
+
+  def __getobj__
+    @delegate_sd_obj # return object we are delegating to, required
+  end
+
+  def __setobj__(obj)
+    @delegate_sd_obj = obj # change delegation object,
+                           # a feature we're providing
   end
 
   def draw
@@ -30,6 +41,12 @@ class Terrain
   def collide_point?(x, y)
     return false if x < 0 || y < 0 || x > image.width || y > image.height
     image.get_pixel(x, y)[3] != 0 rescue false
+  end
+
+  def hightest_collide_point(x)
+    (0..height).to_a.each do |y|
+      return y if collide_point?(x, y)
+    end
   end
 
   def remove_circle(center_x, center_y, radius=1)

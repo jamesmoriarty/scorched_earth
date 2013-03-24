@@ -6,7 +6,6 @@ class Play <  Chingu::GameState
 
     self.terrain  = Terrain.new($window)
     self.input    = {
-      [:q, :escape]         => proc { switch_game_state(Menu) },
       [:left, :a]           => proc { player.left; next_player },
       [:right, :d]          => proc { player.right; next_player },
       [:left_mouse_button]  => proc { player.try_fire(Gosu.angle(player.x, player.y, $window.mouse_x, $window.mouse_y)) and next_player }
@@ -17,8 +16,10 @@ class Play <  Chingu::GameState
     Tank.destroy_all
     Shot.destroy_all
     @current_player_index = 0
-    Tank.create(:x => $window.width/4*1, :y => 50)
-    Tank.create(:x => $window.width/4*3, :y => 50)
+    x = $window.width/4*1
+    Tank.create(:x => x, :y => terrain.hightest_collide_point(x))
+    x = $window.width/4*3
+    Tank.create(:x => x, :y => terrain.hightest_collide_point(x))
   end
 
   def update
