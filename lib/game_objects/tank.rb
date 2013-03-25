@@ -33,7 +33,7 @@ class Tank < Chingu::GameObject
     if moved?
       angles = []
       # TODO - refactor window out and optimize - this is slow.
-      [4, 10, 15, 25].each do |offset|
+      [5, 15].each do |offset|
         x1 = x - offset
         next if x1 < 0
         y1 = $window.current_game_state.terrain.highest_collide_point(x1)
@@ -51,11 +51,11 @@ class Tank < Chingu::GameObject
   end
 
   def right
-    during(3000){ self.velocity_x = 1 }.then{ self.velocity_x = 0 } if stopped?
+    during(1000){ self.velocity_x = 1 }.then{ self.velocity_x = 0 } if stopped?
   end
 
   def left
-    during(3000){ self.velocity_x = -1 }.then{ self.velocity_x = 0 } if stopped?
+    during(1000){ self.velocity_x = -1 }.then{ self.velocity_x = 0 } if stopped?
   end
 
   def try_fire(angle)
