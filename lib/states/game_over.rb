@@ -6,8 +6,8 @@ class GameOver < Chingu::GameState
 
   def draw
     super
-    previous_game_state.draw
-    fill(@layover)
+    # previous_game_state.draw
+    # fill(@layover)
     draw_text
   end
 
