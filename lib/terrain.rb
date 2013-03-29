@@ -16,8 +16,8 @@ class Terrain < Delegator
       x1 = 0.0
       while(x1 < window.width) do
         y1 = ( Math.sin(x1/window.width*cycles) * 100 ) + window.height/1.5
-        line(x1, y1, x1, y2, :color => :green, :fill => true, :texture => Gosu::Image["terrain.png"])
-        line(x1, y1, x1, y1, :color => Gosu::Color.new(255, 75, 75, 75), :fill => true)
+        line(x1, y1, x1, y2, :fill => true, :texture => Gosu::Image["terrain.png"])
+        line(x1, y1, x1, y1, :fill => true, :color => Gosu::Color.new(255, 75, 75, 75))
         x1 += 1.0
       end
     end
@@ -27,11 +27,6 @@ class Terrain < Delegator
 
   def __getobj__
     @delegate_sd_obj # return object we are delegating to, required
-  end
-
-  def __setobj__(obj)
-    @delegate_sd_obj = obj # change delegation object,
-                           # a feature we're providing
   end
 
   def draw
