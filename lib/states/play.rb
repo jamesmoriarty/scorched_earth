@@ -54,7 +54,7 @@ class Play <  Chingu::GameState
     super
 
     if Tank.size > 0 && player
-      draw_angle
+      # draw_angle
       draw_pointer
     end
   end
