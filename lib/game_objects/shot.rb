@@ -1,5 +1,6 @@
 class Shot < Chingu::GameObject
-  has_traits :effect, :velocity, :collision_detection, :timer
+  has_traits  :effect, :velocity, :collision_detection, :timer
+  trait :bounding_box, :scale => 0.9, :debug => $DEBUG
 
   def setup
     super

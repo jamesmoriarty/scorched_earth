@@ -27,6 +27,11 @@ class Play <  Chingu::GameState
       tank.y += 2 unless Terrain.instance.collide_point?(tank.x, tank.y + 2)
     end
 
+    [Tank].each_collision(Shot) do |tank, shot|
+      tank.destroy
+      shot.destroy
+    end
+
     Shot.all.each do |shot|
       if Terrain.instance.collide_point?(shot.x, shot.y)
         radius = 25

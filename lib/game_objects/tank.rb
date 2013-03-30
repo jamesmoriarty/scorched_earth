@@ -1,6 +1,6 @@
 class Tank < Chingu::GameObject
   has_traits :effect, :velocity, :collision_detection, :timer
-  # trait :bounding_box, :scale => 0.7, :debug => $DEBUG
+  trait :bounding_box, :scale => 0.8, :debug => $DEBUG
   attr_accessor :firing
 
   def setup
@@ -78,7 +78,7 @@ class Tank < Chingu::GameObject
     return false
   end
 
-  def fire_y_offset; -30; end
+  def fire_y_offset; -60; end
 
 end
 
