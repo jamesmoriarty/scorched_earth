@@ -1,6 +1,6 @@
 # scorched-earth-rb
 
-run
+Run
 ---
 
 ```bash
@@ -8,7 +8,7 @@ $ bundle
 $ ruby lib/app.rb
 ```
 
-screenshots
+Screenshots
 -----------
 
 ![ScreenShot1](https://raw.github.com/jamesmoriarty/scorched-earth-rb/master/doc/screenshot-01.png)
