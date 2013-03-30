@@ -57,7 +57,7 @@ class Play <  Chingu::GameState
     super
 
     if Tank.size > 0 && player
-      # draw_angle
+      draw_angle
       draw_pointer
     end
   end
@@ -65,15 +65,18 @@ class Play <  Chingu::GameState
   protected
 
   def draw_angle
-    @font     = Gosu::Font.new($window, "verdana", 30)
+    @font     = Gosu::Font["minercraftory.ttf", 28]
 
     text      = "#{Gosu.angle(player.x, player.y, $window.mouse_x, $window.mouse_y).round}\xC2\xB0"
     x         = player.x - (@font.text_width(text)/2)
-    y         = player.y - player.height * 2
+    y         = player.y - player.height * 1.7
     z         = 0
     factor_x, factor_y = 1, 1
-    color     = Gosu::Color::BLACK
 
+    color     = Gosu::Color::BLACK
+    @font.draw(text, x-2, y+2, z, factor_x, factor_y, color)
+
+    color     = Gosu::Color::WHITE
     @font.draw(text, x, y, z, factor_x, factor_y, color)
   end
 

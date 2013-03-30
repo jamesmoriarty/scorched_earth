@@ -14,13 +14,16 @@ class GameOver < Chingu::GameState
   def draw_text
     factor_x, factor_y = 1, 1
 
-    @font     = Gosu::Font["minercraftory.ttf", 48] #.new($window, "verdana", 12)
+    @font     = Gosu::Font["minercraftory.ttf", 48]
     text      = "GAME OVER (ESC to quit, RETURN to try again!)"
     x         = ($window.width/2) - (@font.text_width(text, factor_x)/2)
     y         = $window.height/8
     z         = 0
-    color     = Gosu::Color::WHITE
 
+    color     = Gosu::Color::BLACK
+    @font.draw(text, x-2, y+2, 500, factor_x, factor_y, color)
+
+    color     = Gosu::Color::WHITE
     @font.draw(text, x, y, 500, factor_x, factor_y, color)
   end
 
