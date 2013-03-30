@@ -7,7 +7,6 @@ require "logger"
 require 'gosu'
 require "chingu"
 require 'texplay'
-require "ashton"
 require "require_all"
 
 require_all Dir.glob("**/*.rb").reject{ |f| f.match("spec") || f.match("lib/app.rb")}
