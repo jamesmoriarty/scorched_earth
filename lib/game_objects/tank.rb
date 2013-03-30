@@ -15,8 +15,8 @@ class Tank < Chingu::GameObject
 
     # test pixels to climb or drop.
     (-5..5).to_a.each do |y_offset|
-      has_free  = !$window.current_game_state.terrain.collide_point?(self.x, self.y + y_offset)
-      has_solid = $window.current_game_state.terrain.collide_point?(self.x, self.y + y_offset + 1)
+      has_free  = !Terrain.instance.collide_point?(self.x, self.y + y_offset)
+      has_solid =  Terrain.instance.collide_point?(self.x, self.y + y_offset + 1)
       if has_free and has_solid
         self.y = self.y + y_offset
         return
@@ -36,11 +36,11 @@ class Tank < Chingu::GameObject
       [5, 15].each do |offset|
         x1 = x - offset
         next if x1 < 0
-        y1 = $window.current_game_state.terrain.highest_collide_point(x1)
+        y1 = Terrain.instance.highest_collide_point(x1)
 
         x2 = x + offset
-        next if x2 >= $window.current_game_state.terrain.width
-        y2 = $window.current_game_state.terrain.highest_collide_point(x2)
+        next if x2 >= Terrain.instance.width
+        y2 = Terrain.instance.highest_collide_point(x2)
 
         angles << Gosu.angle(x1, y1, x2, y2)
       end

@@ -26,6 +26,5 @@ class GameOver < Chingu::GameState
 
   def try_again
     pop_game_state  # pop back to our playing game state
-    push_game_state Play
   end
 end

@@ -1,27 +1,36 @@
+require "singleton"
+
 class Terrain < Delegator
+  include Singleton
+
   attr_accessor :image
 
-  def initialize(window)
+  def initialize
+    generate
+  end
+
+  def generate
     # http://banisterfiend.wordpress.com/2008/08/23/texplay-an-image-manipulation-tool-for-ruby-and-gosu/
-    self.image = ::TexPlay.create_image(window, window.width, window.height)
+    self.image ||= ::TexPlay.create_image($window, $window.width, $window.height)
 
-    x1, y1  = 0, window.height/1.5
-    x2, y2  = window.width, window.height
+    # bounds
+    x1, y1  = 0, $window.height/1.5
+    x2, y2  = $window.width, $window.height
 
+    # paint terrain
     image.paint do
-      # solid rect
-      # rect(x1, y1, x2, y2, :color => :green, :fill => true, :texture => Gosu::Image["terrain.png"])
-
+      rect 0, 0, x2, y2, :fill => true, :color => Gosu::Color.new(0, 0, 0, 0)
       cycles = rand(10)
       x1 = 0.0
-      while(x1 < window.width) do
-        y1 = ( Math.sin(x1/window.width*cycles) * 100 ) + window.height/1.5
+      while(x1 < $window.width) do
+        y1 = ( Math.sin(x1/$window.width*cycles) * 100 ) + $window.height/1.5
         line(x1, y1, x1, y2, :fill => true, :texture => Gosu::Image["terrain.png"])
         line(x1, y1, x1, y1, :fill => true, :color => Gosu::Color.new(255, 75, 75, 75))
         x1 += 1.0
       end
     end
 
+    # set delegate object
     @delegate_sd_obj = image
   end
 

@@ -1,38 +1,36 @@
 class Play <  Chingu::GameState
-  attr_accessor :terrain
 
-  def initialize(options={})
-    super
-
-    self.terrain  = Terrain.new($window)
+  def setup
     self.input    = {
       [:esc, :q]            => :exit,
       [:left, :a]           => proc { player.left; next_player },
       [:right, :d]          => proc { player.right; next_player },
       [:left_mouse_button]  => proc { player.try_fire(Gosu.angle(player.x, player.y, $window.mouse_x, $window.mouse_y)) and next_player }
     }
-  end
 
-  def setup
     Tank.destroy_all
     Shot.destroy_all
+    Smoke.destroy_all
+
+    Terrain.instance.generate
+
     @current_player_index = 0
     x = $window.width/4*1
-    Tank.create(:x => x, :y => terrain.highest_collide_point(x))
+    Tank.create(:x => x, :y => Terrain.instance.highest_collide_point(x))
     x = $window.width/4*3
-    Tank.create(:x => x, :y => terrain.highest_collide_point(x))
+    Tank.create(:x => x, :y => Terrain.instance.highest_collide_point(x))
   end
 
   def update
     # gravity
     Tank.all.each do |tank|
-      tank.y += 2 unless terrain.collide_point?(tank.x, tank.y + 2)
+      tank.y += 2 unless Terrain.instance.collide_point?(tank.x, tank.y + 2)
     end
 
     Shot.all.each do |shot|
-      if terrain.collide_point?(shot.x, shot.y)
+      if Terrain.instance.collide_point?(shot.x, shot.y)
         radius = 25
-        terrain.remove_circle(shot.x, shot.y, radius)
+        Terrain.instance.remove_circle(shot.x, shot.y, radius)
         Tank.all.each do |tank|
           if Gosu.distance(tank.x, tank.y, shot.x, shot.y) < radius
             tank.destroy
@@ -49,7 +47,7 @@ class Play <  Chingu::GameState
 
   def draw
     fill(Gosu::Color.new(255,173,216,230))
-    terrain.draw
+    Terrain.instance.draw
 
     super
 
