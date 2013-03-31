@@ -8,17 +8,25 @@ class Play <  Chingu::GameState
       [:left_mouse_button]  => proc { player.try_fire(Gosu.angle(player.x, player.y, $window.mouse_x, $window.mouse_y)) and next_player }
     }
 
+    # cleanup old game objects
     Tank.destroy_all
     Shot.destroy_all
     Smoke.destroy_all
+    Explosion.destroy_all
 
+    # generate new terrain
     Terrain.instance.generate
 
-    @current_player_index = 0
-    x = $window.width/4*1
+    # player 1
+    x = rand(0..$window.width / 4)
     Tank.create(:x => x, :y => Terrain.instance.highest_collide_point(x))
-    x = $window.width/4*3
+
+    # player 2
+    x = rand(($window.width / 4 * 3)..$window.width)
     Tank.create(:x => x, :y => Terrain.instance.highest_collide_point(x))
+
+    # rand player start
+    @current_player_index = rand(1..Tank.size)
   end
 
   def update
@@ -27,28 +35,24 @@ class Play <  Chingu::GameState
       tank.y += 2 unless Terrain.instance.collide_point?(tank.x, tank.y + 2)
     end
 
+    # direct hits
     [Tank].each_collision(Shot) do |tank, shot|
-      tank.destroy
       shot.destroy
+      Explosion.create(:x => shot.x, :y => shot.y)
+      push_game_state(GameOver)
     end
 
+    # terrain hits
     Shot.all.each do |shot|
       if Terrain.instance.collide_point?(shot.x, shot.y)
         radius = 25
         Terrain.instance.remove_circle(shot.x, shot.y, radius)
-        Tank.all.each do |tank|
-          if Gosu.distance(tank.x, tank.y, shot.x, shot.y) < radius
-            tank.destroy
-          end
-        end
         Explosion.create(:x => shot.x, :y => shot.y)
         shot.destroy
       end
     end
 
     super
-
-    push_game_state(GameOver) if Tank.size < 2
   end
 
   def draw
@@ -57,7 +61,7 @@ class Play <  Chingu::GameState
 
     super
 
-    if Tank.size > 0 && player
+    if $window.current_game_state.class == self.class && player
       draw_angle
       draw_pointer
     end
@@ -70,7 +74,7 @@ class Play <  Chingu::GameState
 
     text      = "#{Gosu.angle(player.x, player.y, $window.mouse_x, $window.mouse_y).round}\xC2\xB0"
     x         = player.x - (@font.text_width(text)/2)
-    y         = player.y - player.height * 1.7
+    y         = player.y - player.height - 50
     z         = 0
     factor_x, factor_y = 1, 1
 

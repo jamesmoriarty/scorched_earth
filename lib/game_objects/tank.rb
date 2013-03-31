@@ -4,6 +4,7 @@ class Tank < Chingu::GameObject
   attr_accessor :firing
 
   def setup
+    self.scale = 0.7
     self.rotation_center  = :bottom_center
     self.image = Gosu::Image["tank.png"]
     self.color = ColorBank.instance.next # Gosu::Color.new(255,rand(255), rand(255), rand(255))
@@ -78,7 +79,7 @@ class Tank < Chingu::GameObject
     return false
   end
 
-  def fire_y_offset; -60; end
+  def fire_y_offset; -40; end
 
 end
 

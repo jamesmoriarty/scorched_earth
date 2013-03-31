@@ -2,8 +2,12 @@ require "singleton"
 
 class Terrain < Delegator
   include Singleton
-
   attr_accessor :image
+
+  module Color
+    EMPTY   = ::Gosu::Color.new(  0,   0,   0,   0)
+    SURFACE = ::Gosu::Color.new(255,  75,  75,  75)
+  end
 
   def initialize
     generate
@@ -11,16 +15,17 @@ class Terrain < Delegator
 
   def generate
     # http://banisterfiend.wordpress.com/2008/08/23/texplay-an-image-manipulation-tool-for-ruby-and-gosu/
-    self.image ||= ::TexPlay.create_image($window, $window.width, $window.height)
+    width, height = $window.width, $window.height
+    self.image ||= ::TexPlay.create_image($window, width, height)
 
     # bounds
-    x1, y1  = 0, $window.height/1.5
-    x2, y2  = $window.width, $window.height
+    x1, y1  = 0, height/1.5
+    x2, y2  = width, height
 
     # paint terrain
     image.paint do
       # clear
-      rect(0, 0, x2, y2, :fill => true, :color => Gosu::Color.new(0, 0, 0, 0))
+      rect(0, 0, x2, y2, :fill => true, :color => Color::EMPTY)
 
       # rand seed
       cycles = rand(10)
@@ -28,9 +33,9 @@ class Terrain < Delegator
       # draw
       x1 = 0.0
       while(x1 < $window.width) do
-        y1 = (Math.sin(x1 / $window.width * cycles) * 100) + $window.height / 1.5
+        y1 = (Math.sin(x1 / width * cycles) * 100) + height / 1.5
         line(x1, y1, x1, y2, :fill => true, :texture => Gosu::Image["terrain.png"])
-        pixel(x1, y1, :color => Gosu::Color.new(255, 75, 75, 75))
+        pixel(x1, y1, :color => Color::SURFACE)
         x1 += 1.0
       end
     end
@@ -48,7 +53,7 @@ class Terrain < Delegator
   end
 
   def collide_point?(x, y)
-    return false if x < 0 || y < 0 || x > image.width || y > image.height
+    return false if x < 0 || y < 0 || x > width || y > height
     image.get_pixel(x, y)[3] != 0 rescue false
   end
 
@@ -60,7 +65,7 @@ class Terrain < Delegator
 
   def remove_circle(center_x, center_y, radius=1)
     image.paint do
-      circle(center_x, center_y, radius, :color => [0, 0, 0, 0], :fill => true)
+      circle(center_x, center_y, radius, :color => Color::EMPTY, :fill => true)
     end
   end
 

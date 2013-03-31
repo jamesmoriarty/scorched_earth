@@ -8,16 +8,17 @@ class GameOver < Chingu::GameState
     super
     previous_game_state.draw
     fill(@layover)
-    draw_text
+    draw_text("GAME OVER", $window.height/8, 56)
+    draw_text("ESC to quit, RETURN to try again!", $window.height/8*2, 42)
   end
 
-  def draw_text
+  def draw_text(text, y, font_size)
     factor_x, factor_y = 1, 1
 
-    @font     = Gosu::Font["minercraftory.ttf", 48]
-    text      = "GAME OVER (ESC to quit, RETURN to try again!)"
+    @font     = Gosu::Font["minercraftory.ttf", font_size]
+    # text      = "GAME OVER (ESC to quit, RETURN to try again!)"
     x         = ($window.width/2) - (@font.text_width(text, factor_x)/2)
-    y         = $window.height/8
+    # y         = $window.height/8
     z         = 0
 
     color     = Gosu::Color::BLACK
