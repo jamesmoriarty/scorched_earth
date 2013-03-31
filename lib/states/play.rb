@@ -41,6 +41,7 @@ class Play <  Chingu::GameState
             tank.destroy
           end
         end
+        Explosion.create(:x => shot.x, :y => shot.y)
         shot.destroy
       end
     end
