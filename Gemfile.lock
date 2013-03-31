@@ -1,10 +1,12 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    chingu (0.9rc8)
-      gosu (>= 0.7.43)
-      gosu (>= 0.7.43)
+    chingu (0.8.1)
+      crack
+      gosu (>= 0.7.25)
+      rest-client
     columnize (0.3.6)
+    crack (0.3.2)
     debugger (1.5.0)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
@@ -12,8 +14,11 @@ GEM
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.0)
     diff-lcs (1.2.1)
-    gosu (0.7.45)
+    gosu (0.7.46)
+    mime-types (1.22)
     require_all (1.2.1)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
@@ -29,7 +34,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  chingu (= 0.9rc8)
+  chingu
   debugger
   require_all
   rspec

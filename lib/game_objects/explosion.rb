@@ -8,6 +8,7 @@ class Explosion < Chingu::Particle
     self.mode       = :additive
     self.image      = Gosu::Image["particle.png"]
     self.color      = Gosu::Color.new(255,255,0)
+    Gosu::Sound["explosion.wav"].play(0.5)
   end
 
   def update

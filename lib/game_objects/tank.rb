@@ -1,6 +1,6 @@
 class Tank < Chingu::GameObject
   has_traits :effect, :velocity, :collision_detection, :timer
-  trait :bounding_box, :scale => 0.8, :debug => $DEBUG
+  trait :bounding_box, :scale => 1.0, :debug => $DEBUG
   attr_accessor :firing
 
   def setup
@@ -59,17 +59,19 @@ class Tank < Chingu::GameObject
     during(1000){ self.velocity_x = -1 }.then{ self.velocity_x = 0 } if stopped?
   end
 
-  def try_fire(angle)
+  def try_fire(angle, power = 1.0)
     unless firing
-      puts "#try_fire(#{angle})" if $DEBUG
+      puts "#try_fire(#{angle}, #{power})" if $DEBUG
+      power *= 2
       Shot.create(
         :x              => x,
         :y              => y + fire_y_offset,
-        :velocity_x     => Gosu.offset_x(angle, 13),
-        :velocity_y     => Gosu.offset_y(angle, 13),
+        :velocity_x     => Gosu.offset_x(angle, 10 + power),
+        :velocity_y     => Gosu.offset_y(angle, 10 + power),
         :acceleration_y => 0.3,
         :angle          => angle
       )
+      Gosu::Sound["fire.wav"].play
       self.firing = true
       after(1000){ self.firing = false }
 
