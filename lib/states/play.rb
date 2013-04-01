@@ -37,10 +37,7 @@ class Play <  Chingu::GameState
   end
 
   def update
-    # remove off screen objects
-    game_objects.destroy_if { |game_object| game_object.y > $window.height}
-    push_game_state(GameOver) if Tank.size < 2
-
+    super
 
     # gravity
     Tank.all.each do |tank|
@@ -57,7 +54,7 @@ class Play <  Chingu::GameState
     # terrain hits
     Shot.all.each do |shot|
       if Terrain.instance.collide_point?(shot.x, shot.y)
-        radius = 50
+        radius = 25
         Terrain.instance.remove_circle(shot.x, shot.y, radius)
         Explosion.create(:x => shot.x, :y => shot.y)
         Tank.all.each do |tank|
@@ -70,7 +67,8 @@ class Play <  Chingu::GameState
       end
     end
 
-    super
+    # remove off screen objects
+    game_objects.destroy_if { |game_object| game_object.y > $window.height}
   end
 
   def draw
