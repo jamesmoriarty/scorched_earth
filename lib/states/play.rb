@@ -1,4 +1,5 @@
 class Play <  Chingu::GameState
+  TURN_LIMIT = 15
 
   def setup
     self.input    = {
@@ -34,10 +35,15 @@ class Play <  Chingu::GameState
 
     # rand player start
     @current_player_index = rand(1..Tank.size)
+
+    @timer ||= Timer.new
+    @timer.start
   end
 
   def update
     super
+
+    next_player if 0 >= TURN_LIMIT - @timer.started_at_seconds_ago
 
     # gravity
     Tank.all.each do |tank|
@@ -78,6 +84,7 @@ class Play <  Chingu::GameState
     super
 
     if $window.current_game_state.class == self.class && player
+      draw_timer
       draw_angle
       draw_power
       draw_pointer
@@ -86,8 +93,24 @@ class Play <  Chingu::GameState
 
   protected
 
+  def draw_timer
+    @font     = Gosu::Font["minercraftory.ttf", 60]
+
+    text      = "00:%02d" % (TURN_LIMIT - @timer.started_at_seconds_ago)
+    x         = $window.width / 2 - (@font.text_width(text) / 2)
+    y         = 25
+    z         = 0
+    factor_x, factor_y = 1, 1
+
+    color     = Gosu::Color::BLACK
+    @font.draw(text, x-2, y+2, z, factor_x, factor_y, color)
+
+    color     = Gosu::Color::WHITE
+    @font.draw(text, x, y, z, factor_x, factor_y, color)
+  end
+
   def draw_power
-    @font     = Gosu::Font["minercraftory.ttf", 28]
+    @font     = Gosu::Font["minercraftory.ttf", 30]
 
     power     = (player_power*10).round
     text      = "#{power}\u21E1"
@@ -112,7 +135,7 @@ class Play <  Chingu::GameState
 
 
   def draw_angle
-    @font     = Gosu::Font["minercraftory.ttf", 28]
+    @font     = Gosu::Font["minercraftory.ttf", 30]
 
     text      = "#{player_angle.round}\xC2\xB0"
     x         = player.x + player.width/2
@@ -144,6 +167,7 @@ class Play <  Chingu::GameState
   end
 
   def next_player
+    @timer.start
     @current_player_index + 1 < Tank.size ? @current_player_index += 1 : @current_player_index = 0
   end
 
