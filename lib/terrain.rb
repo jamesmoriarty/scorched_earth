@@ -63,7 +63,7 @@ class Terrain < Delegator
     end
   end
 
-  def remove_circle(center_x, center_y, radius=1, burn_radius_factor=2)
+  def remove_circle(center_x, center_y, radius=1, burn_radius_factor=3)
     image.paint do
       # burn terrain
       circle(
