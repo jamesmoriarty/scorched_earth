@@ -1,4 +1,4 @@
-# scorched-earth-rb
+# scorched-earth-rb [![Dependency Status](https://gemnasium.com/jamesmoriarty/scorched-earth-rb.png)](https://gemnasium.com/jamesmoriarty/scorched-earth-rb)
 
 Run
 ---
