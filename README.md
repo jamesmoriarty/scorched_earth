@@ -5,7 +5,7 @@ Run
 
 ```bash
 $ bundle
-$ ./script/run
+$ script/run
 ```
 
 Screenshots
