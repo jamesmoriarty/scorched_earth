@@ -10,6 +10,3 @@ class App < Chingu::Window
   end
 
 end
-
-App.new.show
-

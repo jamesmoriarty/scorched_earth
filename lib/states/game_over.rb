@@ -1,7 +1,7 @@
 class GameOver < Chingu::GameState
   def setup
     self.input = { :esc => :exit, :return => :try_again }
-    @layover = Gosu::Color.new(0x22000000)
+    @layover = Gosu::Color.new(0x11000000)
   end
 
   def draw

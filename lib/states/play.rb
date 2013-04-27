@@ -1,11 +1,12 @@
 class Play <  Chingu::GameState
-  TURN_LIMIT = 15
+  TURN_LIMIT = 15 # seconds
 
   def setup
     self.input    = {
       [:esc, :q]            => :exit,
-      [:left, :a]           => proc { player.left; next_player },
-      [:right, :d]          => proc { player.right; next_player },
+      [:left, :a]           => proc { player.left },
+      [:right, :d]          => proc { player.right },
+      # TODO - refactor this.
       [:released_left_mouse_button] => proc do
         player.try_fire(player_angle, player_power);
         @mouse_down_at = nil
@@ -64,7 +65,7 @@ class Play <  Chingu::GameState
         Terrain.instance.remove_circle(shot.x, shot.y, radius)
         Explosion.create(:x => shot.x, :y => shot.y)
         Tank.all.each do |tank|
-          if Gosu.distance(tank.x, tank.y, shot.x, shot.y) < radius
+          if Gosu.distance(tank.x, tank.y, shot.x, shot.y) < (radius * 1.2)
             tank.destroy
             push_game_state(GameOver)
           end
@@ -78,7 +79,8 @@ class Play <  Chingu::GameState
   end
 
   def draw
-    fill(Gosu::Color.new(255,173,216,230))
+    Gosu::Image["parallax.png"].draw(0, 0, 0)
+    #fill(Gosu::Color.new(255,173,216,230))
     Terrain.instance.draw
 
     super
