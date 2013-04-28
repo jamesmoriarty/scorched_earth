@@ -1,5 +1,10 @@
 # scorched-earth-rb [![endorse](https://api.coderwall.com/jamesmoriarty/endorsecount.png)](https://coderwall.com/jamesmoriarty) [![Dependency Status](https://gemnasium.com/jamesmoriarty/scorched-earth-rb.png)](https://gemnasium.com/jamesmoriarty/scorched-earth-rb)
 
+Requirements
+------------
+
+RVM
+
 Run
 ---
 
