@@ -4,7 +4,6 @@ Requirements
 ------------
 
 ruby-1.9.3
-bundler
 
 Run
 ---
