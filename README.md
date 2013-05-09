@@ -1,16 +1,22 @@
 # scorched-earth-rb [![endorse](https://api.coderwall.com/jamesmoriarty/endorsecount.png)](https://coderwall.com/jamesmoriarty) [![Dependency Status](https://gemnasium.com/jamesmoriarty/scorched-earth-rb.png)](https://gemnasium.com/jamesmoriarty/scorched-earth-rb)
 
+A simple clone of the classic game Scorched Earth in Ruby using OpenGL. 
+
+Known to work on OSX, Linux, and Windows.
+
 Requirements
 ------------
 
+```
 ruby-1.9.3
+```
 
 Run
 ---
 
 ```bash
-$ bundle
-$ script/run
+bundle
+script/run
 ```
 
 Screenshots
