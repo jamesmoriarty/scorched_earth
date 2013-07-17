@@ -18,10 +18,7 @@ class Play <  Chingu::GameState
     }
 
     # cleanup old game objects
-    Tank.destroy_all
-    Shot.destroy_all
-    Smoke.destroy_all
-    Explosion.destroy_all
+    [Tank, Shot, Smoke, Explosion].each(&:destroy_all)
 
     # generate new terrain
     Terrain.instance.generate

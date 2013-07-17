@@ -1,13 +1,14 @@
 class Tank < Chingu::GameObject
+  attr_accessor :firing
+
   has_traits :effect, :velocity, :collision_detection, :timer
   trait :bounding_box, :scale => 1.0, :debug => $DEBUG
-  attr_accessor :firing
 
   def setup
     self.scale = 0.7
     self.rotation_center  = :bottom_center
     self.image = Gosu::Image["tank.png"]
-    self.color = ColorBank.instance.next # Gosu::Color.new(255,rand(255), rand(255), rand(255))
+    self.color = ColorIterator.instance.next
   end
 
   def move(x, y)

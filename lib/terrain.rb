@@ -66,26 +66,7 @@ class Terrain < Delegator
   def remove_circle(center_x, center_y, radius=1, burn_radius_factor=3)
     image.paint do
       # burn terrain
-      circle(
-        center_x,
-        center_y,
-        radius * burn_radius_factor,
-        :color => Gosu::Color::BLACK,
-        :fill => true,
-        :color_control => proc do |color_dest, x, y|
-          ratio = Gosu.distance(center_x, center_y, x, y).to_f / (radius * burn_radius_factor)
-          if color_dest && color_dest[3] != 0
-            color_dest[0] *= ratio # red
-            color_dest[1] *= ratio # green
-            color_dest[2] *= ratio # blue
-            # leave the alpha alone
-            color_dest
-          else
-            Color::EMPTY
-          end
-        end
-      )
-
+      circle(center_x, center_y, radius * 1.3, :fill => true, :mode => :darken, :color => Gosu::Color.new(200, 0, 0, 0))
       # remove terrain
       circle(center_x, center_y, radius, :color => Color::EMPTY, :fill => true)
     end

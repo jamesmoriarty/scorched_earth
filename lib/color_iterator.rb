@@ -1,6 +1,6 @@
 require "singleton"
 
-class ColorBank
+class ColorIterator
   include Singleton
 
   def initialize
