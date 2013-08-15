@@ -6,7 +6,6 @@ gem "chingu"
 gem "texplay"
 
 group :development, :test do
-  gem "rspec"
   gem "debugger"
 end
 
