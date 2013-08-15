@@ -14,6 +14,9 @@ class Terrain < Delegator
   end
 
   def generate
+    # rand seed
+    cycles = rand(10)
+
     # http://banisterfiend.wordpress.com/2008/08/23/texplay-an-image-manipulation-tool-for-ruby-and-gosu/
     width, height = $window.width, $window.height
     self.image ||= ::TexPlay.create_image($window, width, height)
@@ -27,9 +30,6 @@ class Terrain < Delegator
       # clear
       rect(0, 0, x2, y2, :fill => true, :color => Color::EMPTY)
 
-      # rand seed
-      cycles = rand(10)
-
       # draw
       x1 = 0.0
       while(x1 < $window.width) do
@@ -39,13 +39,10 @@ class Terrain < Delegator
         x1 += 1.0
       end
     end
-
-    # set delegate object
-    @delegate_sd_obj = image
   end
 
   def __getobj__
-    @delegate_sd_obj # return object we are delegating to, required
+    image # return object we are delegating to, required
   end
 
   def draw
