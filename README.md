@@ -28,3 +28,7 @@ Screenshots
 
 ## Copyright
 Copyright © 2013 James Moriarty. See LICENSE.txt for further details.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jamesmoriarty/scorched-earth-rb/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
