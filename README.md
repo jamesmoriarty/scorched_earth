@@ -23,7 +23,7 @@ Or install it yourself as:
 
 ## Screenshots
 
-![Screenshot0](https://raw.github.com/jamesmoriarty/scorched-earth-rb/master/doc/screenshot-00.png)
+![Screenshot0](https://raw.githubusercontent.com/jamesmoriarty/scorched-earth-rb/version-2/doc/screenshot-00.png)
 
 ## Usage
 
@@ -40,9 +40,9 @@ Or install it yourself as:
 Old Screenshots
 ---------------
 
-![Screenshot2](https://raw.github.com/jamesmoriarty/scorched-earth-rb/master/doc/screenshot-02.png)
+![Screenshot2](https://raw.githubusercontent.com/jamesmoriarty/scorched-earth-rb/version-2/doc/screenshot-02.png)
 
-![ScreenShot1](https://raw.github.com/jamesmoriarty/scorched-earth-rb/master/doc/screenshot-01.png)
+![ScreenShot1](https://raw.githubusercontent.com/jamesmoriarty/scorched-earth-rb/version-2/doc/screenshot-01.png)
 
 ## Copyright
 Copyright © 2013 James Moriarty. See LICENSE.txt for further details.
