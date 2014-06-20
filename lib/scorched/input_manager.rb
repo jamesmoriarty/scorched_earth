@@ -8,14 +8,7 @@ module Scorched
       @mouse_press_at = Time.now
     end
 
-    def mouse_release(x, y)
-      delta      = (Time.now - mouse_press_at) * 3 + 10
-      x          = current_player.x - mouse_pos.x
-      y          = current_player.y - (height - mouse_pos.y)
-      angle      = Math.angle(x, y) + 270
-      velocity_x = Math.offsetX(angle, delta)
-      velocity_y = Math.offsetY(angle, delta)
-
+    def mouse_release(*args)
       Shot.create(
         x:          current_player.x,
         y:          current_player.y,
@@ -25,6 +18,30 @@ module Scorched
       )
 
       next_player
+    end
+
+    def delta
+      (Time.now - mouse_press_at) * 3 + 10
+    end
+
+    def x
+      current_player.x - mouse_pos.x
+    end
+
+    def y
+      current_player.y - (height - mouse_pos.y)
+    end
+
+    def angle
+      Math.angle(x, y) + 270
+    end
+
+    def velocity_x
+      Math.offsetX(angle, delta)
+    end
+
+    def velocity_y
+      Math.offsetY(angle, delta)
     end
   end
 end
