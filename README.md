@@ -11,7 +11,7 @@ A simple clone of the classic game Scorched Earth in Ruby.
 
 Add this line to your application's Gemfile:
 
-    gem 'scorched'
+    gem 'scorched_earth'
 
 And then execute:
 
@@ -19,7 +19,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install scorched
+    $ gem install scorched_earth
 
 ## Screenshots
 

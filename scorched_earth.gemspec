@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'scorched/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "scorched"
+  spec.name          = "scorched_earth"
   spec.version       = Scorched::VERSION
   spec.authors       = ["James Moriarty"]
   spec.email         = ["jamespaulmoriarty@gmail.com"]
