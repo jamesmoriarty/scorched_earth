@@ -2,7 +2,7 @@
 
 [![Code Climate](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb.png)](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb) [![Dependency Status](https://gemnasium.com/jamesmoriarty/scorched-earth-rb.png)](https://gemnasium.com/jamesmoriarty/scorched-earth-rb)
 
-A simple clone of the classic game Scorched Earth in Ruby. 
+A simple clone of the classic game Scorched Earth in Ruby.
 
 ## Installation
 
@@ -21,9 +21,13 @@ Or install it yourself as:
 
     $ gem install scorched
 
+## Screenshots
+
+![Screenshot0](https://raw.github.com/jamesmoriarty/scorched-earth-rb/master/doc/screenshot-00.png)
+
 ## Usage
 
-TODO: Write usage instructions here
+    $ scorched
 
 ## Contributing
 
