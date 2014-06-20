@@ -1,20 +1,20 @@
 module Scorched
   class GameScene < Ray::Scene
-    scene_name :game
+    attr_accessor :width, :height, :cycles, :terrian, :input_manager
 
-    attr_accessor :width, :height, :cycles, :terrian, :mouse_press_at
+    scene_name :game
 
     def setup
       @width, @height = window.size.to_a
       @cycles         = rand(10)
       @terrian        = self.class.random_terrian(width, height, cycles)
-
+      @input_manager  = InputManager.new(self)
       2.times.map { Player.create(terrian) }
     end
 
     def register
-      add_hook :mouse_release, method(:mouse_release)
-      add_hook :mouse_press,   method(:mouse_press)
+      add_hook :mouse_release, input_manager.method(:mouse_release)
+      add_hook :mouse_press,   input_manager.method(:mouse_press)
       add_hook :quit,          method(:exit!)
 
       always do
@@ -43,6 +43,24 @@ module Scorched
       Entity.descendants.each do |klass|
         klass.all.each(&:destroy)
       end
+    end
+
+    def next_player
+      Player.all.rotate!
+    end
+
+    def current_player
+      Player.all[0]
+    end
+
+    def self.random_terrian(width, height, cycles)
+      Array.new(width) do |index|
+        Math.sin(index.to_f / width.to_f * cycles.to_f) * height / 4 + (height / 4).to_i
+      end
+    end
+
+    def mouse_pos
+      super
     end
 
     private
@@ -117,43 +135,6 @@ module Scorched
     def render_explosions(win)
       Explosion.all.each do |explosion|
         win.draw Ray::Polygon.circle([explosion.x, height - explosion.y], explosion.radius, Ray::Color.yellow)
-      end
-    end
-
-    def mouse_press
-      @mouse_press_at = Time.now
-    end
-
-    def mouse_release
-      delta      = (Time.now - mouse_press_at) * 3 + 10
-      x          = current_player.x - mouse_pos.x
-      y          = current_player.y - (height - mouse_pos.y)
-      angle      = Math.angle(x, y) + 270
-      velocity_x = Math.offsetX(angle, delta)
-      velocity_y = Math.offsetY(angle, delta)
-
-      Shot.create(
-        x:          current_player.x,
-        y:          current_player.y,
-        velocity_x: velocity_x,
-        velocity_y: velocity_y,
-        angle:      angle
-      )
-
-      next_player
-    end
-
-    def next_player
-      Player.all.rotate!
-    end
-
-    def current_player
-      Player.all[0]
-    end
-
-    def self.random_terrian(width, height, cycles)
-      Array.new(width) do |index|
-        Math.sin(index.to_f / width.to_f * cycles.to_f) * height / 4 + (height / 4).to_i
       end
     end
   end
