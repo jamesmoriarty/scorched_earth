@@ -4,7 +4,7 @@
 
 A simple clone of the classic game Scorched Earth in Ruby.
 
-## Installation
+## Installation [![Gem Version](https://badge.fury.io/rb/scorched_earth.svg)](http://badge.fury.io/rb/scorched_earth)
 
     brew install glew
     brew install libsndfile
