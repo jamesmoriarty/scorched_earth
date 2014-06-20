@@ -7,7 +7,7 @@ module Scorched
     def setup
       @width, @height = window.size.to_a
       @cycles         = rand(10)
-      @terrian        = self.class.random_terrian(width, height, cycles)
+      @terrian        = Terrian.new(width, height, cycles)
       @input_manager  = InputManager.new(self)
       2.times.map { Player.create(terrian) }
     end
@@ -76,23 +76,10 @@ module Scorched
       Shot.all.each do |shot|
         if shot.x >= 0 && shot.x < width && shot.y <= terrian[shot.x]
           update_shots_do_remove_players(shot)
-          update_shots_do_remove_terrian(shot)
+          terrian.deform(shot)
           shot.destroy
           Explosion.create(x: shot.x, y: shot.y)
         end
-      end
-    end
-
-    def update_shots_do_remove_terrian(shot)
-      x1 = shot.x - shot.radius
-      x1 = [0, x1].max.to_i
-      x2 = shot.x + shot.radius
-      x2 = [width, x2].min.to_i
-
-      Range.new(x1, x2).to_a.each do |x|
-        cycle       = (x - shot.x).to_f / (shot.radius * 2).to_f + 0.5
-        delta       = Math.sin(Math::PI * cycle) * shot.radius
-        terrian[x] -= delta.to_i if x >= 0 && x < width
       end
     end
 
