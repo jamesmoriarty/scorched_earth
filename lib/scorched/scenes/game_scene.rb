@@ -53,12 +53,6 @@ module Scorched
       Player.all[0]
     end
 
-    def self.random_terrian(width, height, cycles)
-      Array.new(width) do |index|
-        Math.sin(index.to_f / width.to_f * cycles.to_f) * height / 4 + (height / 4).to_i
-      end
-    end
-
     def mouse_pos
       super
     end
