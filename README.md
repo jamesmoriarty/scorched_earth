@@ -1,6 +1,8 @@
 # Scorched
 
-TODO: Write a gem description
+[![Code Climate](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb.png)](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb) [![Dependency Status](https://gemnasium.com/jamesmoriarty/scorched-earth-rb.png)](https://gemnasium.com/jamesmoriarty/scorched-earth-rb)
+
+A simple clone of the classic game Scorched Earth in Ruby. 
 
 ## Installation
 
@@ -30,3 +32,13 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+Old Screenshots
+---------------
+
+![Screenshot2](https://raw.github.com/jamesmoriarty/scorched-earth-rb/master/doc/screenshot-02.png)
+
+![ScreenShot1](https://raw.github.com/jamesmoriarty/scorched-earth-rb/master/doc/screenshot-01.png)
+
+## Copyright
+Copyright © 2013 James Moriarty. See LICENSE.txt for further details.
