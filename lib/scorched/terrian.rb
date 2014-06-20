@@ -6,14 +6,14 @@ module Scorched
       end
     end
 
-    def deform(shot)
-      x1 = shot.x - shot.radius
-      x2 = shot.x + shot.radius
+    def deform(x, radius)
+      x1 = x - radius
+      x2 = x + radius
 
-      Range.new(x1.to_i, x2.to_i).to_a.each do |x|
-        cycle    = (x - shot.x).to_f / (shot.radius * 2).to_f + 0.5
-        delta    = Math.sin(Math::PI * cycle) * shot.radius
-        self[x] -= delta.to_i if x >= 0 && x < size
+      Range.new(x1.to_i, x2.to_i).to_a.each do |x_offset|
+        cycle = (x_offset - x).to_f / (radius * 2).to_f + 0.5
+        delta = Math.sin(Math::PI * cycle) * radius
+        self[x_offset] -= delta.to_i if x_offset >= 0 && x_offset < size
       end
     end
   end

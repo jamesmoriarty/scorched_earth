@@ -71,7 +71,7 @@ module Scorched
       Shot.all.each do |shot|
         if shot.x >= 0 && shot.x < width && shot.y <= terrian[shot.x]
           update_shots_do_remove_players(shot)
-          terrian.deform(shot)
+          terrian.deform(shot.x, shot.radius)
           shot.destroy
         end
       end
