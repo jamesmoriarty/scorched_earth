@@ -23,4 +23,8 @@ module Math
     end
     result
   end
+
+  def self.inside_radius?(x, y, radius)
+    x ** 2 + y ** 2 < radius ** 2
+  end
 end

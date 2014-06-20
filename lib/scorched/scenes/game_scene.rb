@@ -79,7 +79,9 @@ module Scorched
 
     def update_shots_do_remove_players(shot)
       Player.all.select do |player|
-        (player.x - shot.x) ** 2 + (player.y - shot.y) ** 2 < shot.radius ** 2
+        x = player.x - shot.x
+        y = player.y - shot.y
+        Math.inside_radius?(x, y, shot.radius)
       end.each(&:destroy)
     end
 
