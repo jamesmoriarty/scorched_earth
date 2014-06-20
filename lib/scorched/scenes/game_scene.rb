@@ -35,6 +35,7 @@ module Scorched
     def render(win)
       render_terrian(win)
       render_players(win)
+      render_target(win)
       render_shots(win)
       render_explosions(win)
     end
@@ -104,10 +105,11 @@ module Scorched
       Player.all.each do |player|
         x, y = player.x, height - player.y
         win.draw Ray::Polygon.circle([x, y], 10, player.color)
-        if current_player.eql?(player)
-          win.draw Ray::Polygon.line([x, y], mouse_pos, 2, Ray::Color.red)
-        end
       end
+    end
+
+    def render_target(win)
+      win.draw Ray::Polygon.line([current_player.x, height - current_player.y], mouse_pos, 2, Ray::Color.red)
     end
 
     def render_shots(win)
