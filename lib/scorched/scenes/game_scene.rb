@@ -108,8 +108,9 @@ module Scorched
 
     def render_shots(win)
       Shot.all.each do |shot|
-        x, y = shot.x, height - shot.y
-        win.draw Ray::Polygon.circle([x, y], 3, Ray::Color.yellow)
+        x1, y1 = shot.x, height - shot.y
+        x2, y2 = x1 + Math.offsetX(shot.angle, 10), y1 + Math.offsetY(shot.angle, 10)
+        win.draw Ray::Polygon.line([x1, y1], [x2, y2], 2, Ray::Color.yellow)
       end
     end
 
