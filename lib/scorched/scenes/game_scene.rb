@@ -73,29 +73,33 @@ module Scorched
     end
 
     def update_shots
-      radius = 30
       Shot.all.each do |shot|
         if shot.x >= 0 && shot.x < width && shot.y <= terrian[shot.x]
-          x1 = shot.x - radius
-          x1 = [0, x1.to_i].max
-          x2 = shot.x + radius
-          x2 = [width, x2.to_i].min
-
-          Range.new(x1, x2).to_a.each do |x|
-            cycle       = (x - shot.x).to_f / (radius * 2).to_f + 0.5
-            delta       = Math.sin(Math::PI * cycle) * radius
-            terrian[x] -= delta.to_i if x >= 0 && x < width
-          end
-
-          Player.all.select do |player|
-            (player.x - shot.x) ** 2 + (player.y - shot.y) ** 2 < radius ** 2
-          end.each(&:destroy)
-
+          update_shots_do_remove_players(shot)
+          update_shots_do_remove_terrian(shot)
           shot.destroy
-
           Explosion.create(x: shot.x, y: shot.y)
         end
       end
+    end
+
+    def update_shots_do_remove_terrian(shot)
+      x1 = shot.x - shot.radius
+      x1 = [0, x1].max.to_i
+      x2 = shot.x + shot.radius
+      x2 = [width, x2].min.to_i
+
+      Range.new(x1, x2).to_a.each do |x|
+        cycle       = (x - shot.x).to_f / (shot.radius * 2).to_f + 0.5
+        delta       = Math.sin(Math::PI * cycle) * shot.radius
+        terrian[x] -= delta.to_i if x >= 0 && x < width
+      end
+    end
+
+    def update_shots_do_remove_players(shot)
+      Player.all.select do |player|
+        (player.x - shot.x) ** 2 + (player.y - shot.y) ** 2 < shot.radius ** 2
+      end.each(&:destroy)
     end
 
     def update_player
