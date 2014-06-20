@@ -72,7 +72,6 @@ module Scorched
           update_shots_do_remove_players(shot)
           terrian.deform(shot)
           shot.destroy
-          Explosion.create(x: shot.x, y: shot.y)
         end
       end
     end
