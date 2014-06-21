@@ -14,7 +14,7 @@ module Scorched
     end
 
     def render(win, height)
-      win.draw Ray::Polygon.circle([x, height - y], radius, Ray::Color.yellow)
+      win.draw Ray::Polygon.circle([x, height - y], radius, Ray::Color.new(255, 255, 204))
     end
   end
 end

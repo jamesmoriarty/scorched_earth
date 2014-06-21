@@ -35,6 +35,8 @@ module Scorched
     end
 
     def render(win)
+      win.clear Ray::Color.new(153, 153, 204)
+
       Entity.descendants.each do |klass|
         klass.all.each do |entity|
           entity.render(win, height)

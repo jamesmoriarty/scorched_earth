@@ -16,7 +16,7 @@ module Scorched
 
         Ray::ImageTarget.new(image) do |target|
           each_with_index do |y, x|
-            target.draw Ray::Polygon.line([x, height], [x, height - y], 1, Ray::Color.brown)
+            target.draw Ray::Polygon.line([x, height], [x, height - y], 1, Ray::Color.new(204, 204, 153))
           end
 
           target.update
@@ -34,7 +34,7 @@ module Scorched
         cycle = (x_offset - x).to_f / (radius * 2).to_f + 0.5
         delta = Math.sin(Math::PI * cycle) * radius
         if x_offset >= 0 && x_offset < size
-          self[x_offset] = [self[x_offset] - delta.to_i, 0].max 
+          self[x_offset] = [self[x_offset] - delta.to_i, 0].max
         end
       end
 

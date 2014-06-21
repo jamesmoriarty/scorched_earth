@@ -4,11 +4,11 @@ module Scorched
   class Player < Entity
     class << self
       def random_color
-        Ray::Color.send(colors.rotate![0])
+        colors.rotate![0]
       end
 
       def colors
-        @colors ||= [:red, :green, :blue, :cyan, :yellow, :fuschia].shuffle
+        @colors ||= [Ray::Color.new(9, 112, 84), Ray::Color.new(255, 153, 0)].shuffle
       end
     end
 
