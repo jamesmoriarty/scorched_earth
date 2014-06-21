@@ -33,7 +33,9 @@ module Scorched
       Range.new(x1.to_i, x2.to_i).to_a.each do |x_offset|
         cycle = (x_offset - x).to_f / (radius * 2).to_f + 0.5
         delta = Math.sin(Math::PI * cycle) * radius
-        self[x_offset] -= delta.to_i if x_offset >= 0 && x_offset < size
+        if x_offset >= 0 && x_offset < size
+          self[x_offset] = [self[x_offset] - delta.to_i, 0].max 
+        end
       end
 
       @cache = nil
