@@ -13,7 +13,11 @@ module Scorched
       end
 
       def descendants
-        @cache ||= ObjectSpace.each_object(Class).select { |klass| klass < self }
+        @cache ||= begin
+          ObjectSpace.each_object(Class).select do |klass|
+            klass < self
+          end
+        end
       end
     end
 
