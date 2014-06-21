@@ -12,5 +12,9 @@ module Scorched
       @radius += 10
       destroy if radius > 50
     end
+
+    def render(win, height)
+      win.draw Ray::Polygon.circle([x, height - y], radius, Ray::Color.yellow)
+    end
   end
 end

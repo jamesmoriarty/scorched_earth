@@ -13,7 +13,7 @@ module Scorched
       end
 
       def descendants
-        ObjectSpace.each_object(Class).select { |klass| klass < self }
+        @cache ||= ObjectSpace.each_object(Class).select { |klass| klass < self }
       end
     end
 
@@ -29,6 +29,9 @@ module Scorched
 
     def update
       move
+    end
+
+    def render(win, height)
     end
 
     def move

@@ -21,7 +21,7 @@ module Scorched
     end
 
     def delta
-      (Time.now - mouse_press_at) * 3 + 10
+      (Time.now - mouse_press_at) * 3 + 15
     end
 
     def x

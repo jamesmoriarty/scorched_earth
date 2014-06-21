@@ -6,6 +6,12 @@ module Scorched
       end
     end
 
+    def render(win, height)
+      each_with_index do |y, x|
+        win.draw Ray::Polygon.line([x, height], [x, height - y], 1, Ray::Color.brown)
+      end
+    end
+
     def deform(x, radius)
       x1 = x - radius
       x2 = x + radius
