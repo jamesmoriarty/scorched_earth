@@ -9,7 +9,7 @@ module Scorched
       @cycles         = rand(10)
       @terrian        = Terrian.new(width, height, cycles)
       @input_manager  = InputManager.new(self)
-      @ui_manager      = UIManager.new(self)
+      @ui_manager     = UIManager.new(self)
 
       2.times { Player.create(terrian) }
     end
@@ -29,7 +29,7 @@ module Scorched
         klass.all.each(&:update)
       end
 
-      update_input
+      input_manager.update
       update_collisions
       update_scene
     end
@@ -88,16 +88,6 @@ module Scorched
         y = player.y - shot.y
         Math.inside_radius?(x, y, shot.radius)
       end.each(&:destroy)
-    end
-
-    def update_input
-      if [:right, :d].any? { |code| holding? key(code) }
-        current_player.x += 1
-        current_player.x  = [current_player.x, width].min
-      elsif [:left, :a].any? { |code| holding? key(code) }
-        current_player.x -= 1
-        current_player.x  = [current_player.x, 0].max
-      end
     end
   end
 end

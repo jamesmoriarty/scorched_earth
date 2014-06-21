@@ -2,7 +2,17 @@ require "delegate"
 
 module Scorched
   class InputManager < SimpleDelegator
+    include Ray::Helper
+
     attr_accessor :mouse_press_at
+
+    def update
+      if  holding?(key :right) || holding?(key :d)
+        current_player.x = [current_player.x += 1, width].min
+      elsif holding?(key :left) || holding?(key :a)
+        current_player.x = [current_player.x -= 1, 0].max
+      end
+    end
 
     def mouse_press
       @mouse_press_at = Time.now
