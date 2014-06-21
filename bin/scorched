@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
-require_relative "../lib/scorched"
+# require "simplecov"
+# SimpleCov.start
 
+require_relative "../lib/scorched"
 Scorched::Game.new.run

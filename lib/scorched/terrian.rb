@@ -7,9 +7,21 @@ module Scorched
     end
 
     def render(win, height)
-      each_with_index do |y, x|
-        win.draw Ray::Polygon.line([x, height], [x, height - y], 1, Ray::Color.brown)
+      @cache ||= begin
+        image = Ray::Image.new [size, height]
+
+        Ray::ImageTarget.new image do |target|
+          each_with_index do |y, x|
+            target.draw Ray::Polygon.line([x, height], [x, height - y], 1, Ray::Color.brown)
+          end
+
+          target.update
+        end
+
+        image
       end
+
+      win.draw Ray::Sprite.new(@cache, at: [0, 0])
     end
 
     def deform(x, radius)
@@ -21,6 +33,8 @@ module Scorched
         delta = Math.sin(Math::PI * cycle) * radius
         self[x_offset] -= delta.to_i if x_offset >= 0 && x_offset < size
       end
+
+      @cache = nil
     end
   end
 end
