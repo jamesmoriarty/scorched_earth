@@ -7,10 +7,14 @@ module Scorched
     end
 
     def render(win, height)
+      win.draw sprite(height)
+    end
+
+    def sprite(height)
       @cache ||= begin
         image = Ray::Image.new [size, height]
 
-        Ray::ImageTarget.new image do |target|
+        Ray::ImageTarget.new(image) do |target|
           each_with_index do |y, x|
             target.draw Ray::Polygon.line([x, height], [x, height - y], 1, Ray::Color.brown)
           end
@@ -18,10 +22,8 @@ module Scorched
           target.update
         end
 
-        image
+        Ray::Sprite.new(image, at: [0, 0])
       end
-
-      win.draw Ray::Sprite.new(@cache, at: [0, 0])
     end
 
     def deform(x, radius)
