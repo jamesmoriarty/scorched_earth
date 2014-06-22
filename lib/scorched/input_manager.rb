@@ -8,7 +8,7 @@ module Scorched
 
     def update
       if  holding?(key :right) || holding?(key :d)
-        current_player.x = [current_player.x += 1, width].min
+        current_player.x = [current_player.x += 1, width - 1].min
       elsif holding?(key :left) || holding?(key :a)
         current_player.x = [current_player.x -= 1, 0].max
       end
@@ -24,7 +24,8 @@ module Scorched
         y:          current_player.y,
         velocity_x: velocity_x,
         velocity_y: velocity_y,
-        angle:      angle
+        angle:      angle,
+        terrian:    terrian
       )
 
       next_player

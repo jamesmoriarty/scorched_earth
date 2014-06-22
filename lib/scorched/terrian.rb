@@ -1,5 +1,7 @@
 module Scorched
   class Terrian < Array
+    alias :width :size
+
     def initialize(width, height, cycles)
       super(width) do |index|
         Math.sin(index.to_f / width.to_f * cycles.to_f) * height / 4 + (height / 4).to_i
@@ -12,7 +14,7 @@ module Scorched
 
     def sprite(height)
       @cache ||= begin
-        image = Ray::Image.new [size, height]
+        image = Ray::Image.new [width, height]
 
         Ray::ImageTarget.new(image) do |target|
           each_with_index do |y, x|
@@ -33,7 +35,7 @@ module Scorched
       Range.new(x1.to_i, x2.to_i).to_a.each do |x_offset|
         cycle = (x_offset - x).to_f / (radius * 2).to_f + 0.5
         delta = Math.sin(Math::PI * cycle) * radius
-        if x_offset >= 0 && x_offset < size
+        if x_offset >= 0 && x_offset < width
           self[x_offset] = [self[x_offset] - delta.to_i, 0].max
         end
       end

@@ -8,8 +8,12 @@ module Scorched
 
     def update
       move
-      @velocity_y -= 0.5
-      @angle       = Math.angle(velocity_y, velocity_x)
+      gravity
+      collisison
+    end
+
+    def angle
+      Math.angle(velocity_y, velocity_x)
     end
 
     def render(win, height)
@@ -22,6 +26,24 @@ module Scorched
       super
 
       Explosion.create(x: x, y: y)
+    end
+
+    private
+
+    def gravity
+      @velocity_y -= 0.5
+    end
+
+    def collisison
+      if x >= 0 && x < terrian.width && y <= terrian[x]
+        terrian.deform(x, radius)
+        remove_players
+        destroy
+      end
+    end
+
+    def remove_players
+      Player.all.select { |player| Math.inside_radius?(player.x - x, player.y - y, radius) }.each(&:destroy)
     end
   end
 end

@@ -21,10 +21,10 @@ module Scorched
       end
     end
 
-    attr_accessor :x, :y, :velocity_x, :velocity_y, :angle
+    attr_accessor :x, :y, :velocity_x, :velocity_y, :angle, :terrian
 
-    def initialize(x: 0, y: 0, velocity_x: 0, velocity_y: 0, angle: 0)
-      @x, @y, @velocity_x, @velocity_y, @angle = x, y, velocity_x, velocity_y, angle
+    def initialize(x: 0, y: 0, velocity_x: 0, velocity_y: 0, angle: 0, terrian: nil)
+      @x, @y, @velocity_x, @velocity_y, @angle, @terrian = x, y, velocity_x, velocity_y, angle, terrian
     end
 
     def destroy

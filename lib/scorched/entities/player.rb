@@ -12,11 +12,10 @@ module Scorched
       end
     end
 
-    attr_accessor :color, :terrian
+    attr_accessor :color
 
-    def initialize(terrian)
-      super(Hash.new)
-      @terrian = terrian
+    def initialize(*args)
+      super
       @x       = rand(terrian.size)
       @color   = self.class.random_color
     end

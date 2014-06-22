@@ -11,7 +11,7 @@ module Scorched
       @input_manager  = InputManager.new(self)
       @ui_manager     = UIManager.new(self)
 
-      2.times { Player.create(terrian) }
+      2.times { Player.create(terrian: terrian) }
     end
 
     def register
@@ -30,19 +30,17 @@ module Scorched
       end
 
       input_manager.update
-      update_collisions
+
       update_scene
     end
 
     def render(win)
       win.clear Ray::Color.new(153, 153, 204)
-
       Entity.descendants.each do |klass|
         klass.all.each do |entity|
           entity.render(win, height)
         end
       end
-
       terrian.render(win, height)
       ui_manager.render(win, height)
     end
@@ -72,24 +70,6 @@ module Scorched
         cleanup
         setup
       end
-    end
-
-    def update_collisions
-      Shot.all.each do |shot|
-        if shot.x >= 0 && shot.x < width && shot.y <= terrian[shot.x]
-          update_shots_do_remove_players(shot)
-          terrian.deform(shot.x, shot.radius)
-          shot.destroy
-        end
-      end
-    end
-
-    def update_shots_do_remove_players(shot)
-      Player.all.select do |player|
-        x = player.x - shot.x
-        y = player.y - shot.y
-        Math.inside_radius?(x, y, shot.radius)
-      end.each(&:destroy)
     end
   end
 end
