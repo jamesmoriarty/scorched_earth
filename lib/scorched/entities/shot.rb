@@ -24,7 +24,6 @@ module Scorched
 
     def destroy
       super
-
       Explosion.create(x: x, y: y)
     end
 

@@ -36,11 +36,13 @@ module Scorched
 
     def render(win)
       win.clear Ray::Color.new(153, 153, 204)
+
       Entity.descendants.each do |klass|
         klass.all.each do |entity|
           entity.render(win, height)
         end
       end
+
       terrian.render(win, height)
       ui_manager.render(win, height)
     end
@@ -67,8 +69,12 @@ module Scorched
 
     def update_scene
       if Player.all.size <= 1
-        cleanup
-        setup
+        @timeout ||= Time.now.to_i + 1
+        if @timeout.to_i <= Time.now.to_i
+          cleanup
+          setup
+          @timeout = nil
+        end
       end
     end
   end
