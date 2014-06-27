@@ -28,16 +28,18 @@ module Scorched
       end
     end
 
-    def deform(x, radius)
-      x1 = x - radius
-      x2 = x + radius
+    def deform(center_x, radius)
+      center_y = self[center_x]
 
-      Range.new(x1.to_i, x2.to_i).to_a.each do |x_offset|
-        cycle = (x_offset - x).to_f / (radius * 2).to_f + 0.5
-        delta = Math.sin(Math::PI * cycle) * radius
-        if x_offset >= 0 && x_offset < width
-          self[x_offset] = [self[x_offset] - delta.to_i, 0].max
-        end
+      Math.circle(radius) do |x_offset, y_offset|
+        x = center_x + x_offset
+        y = self[x]
+        next unless y
+        z = y_offset * 2
+        q = center_y - y_offset
+        q = y if q > y
+
+        self[x] = [y - z, q, 0].max
       end
 
       @cache = nil
