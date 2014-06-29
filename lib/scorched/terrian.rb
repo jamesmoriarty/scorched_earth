@@ -31,12 +31,12 @@ module Scorched
     def deform(center_x, radius)
       center_y = self[center_x]
 
-      Math.circle(radius) do |x_offset, y_offset|
-        x = center_x + x_offset
+      Math.circle(radius) do |offset_x, offset_y|
+        x = center_x + offset_x
         y = self[x]
         next unless y
-        z = y_offset * 2
-        q = center_y - y_offset
+        z = offset_y * 2
+        q = center_y - offset_y
         q = y if q > y
 
         self[x] = [y - z, q, 0].max
