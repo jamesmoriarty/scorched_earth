@@ -1,7 +1,7 @@
-require "delegate"
+require_relative "./manager"
 
 module Scorched
-  class InputManager < SimpleDelegator
+  class Input < Manager
     include Ray::Helper
 
     attr_accessor :mouse_press_at

@@ -1,6 +1,6 @@
 module Scorched
   class GameScene < Ray::Scene
-    attr_accessor :width, :height, :cycles, :terrian, :input_manager, :ui_manager
+    attr_accessor :width, :height, :cycles, :terrian
 
     scene_name :game
 
@@ -8,15 +8,17 @@ module Scorched
       @width, @height = window.size.to_a
       @cycles         = rand(10)
       @terrian        = Terrian.new(width, height, cycles)
-      @input_manager  = InputManager.new(self)
-      @ui_manager     = UIManager.new(self)
+
+      Input.create(self)
+      Collision.create(self)
+      UI.create(self)
 
       2.times { Player.create(terrian: terrian) }
     end
 
     def register
-      add_hook :mouse_release, input_manager.method(:mouse_release)
-      add_hook :mouse_press,   input_manager.method(:mouse_press)
+      add_hook :mouse_release, Input.get.method(:mouse_release)
+      add_hook :mouse_press,   Input.get.method(:mouse_press)
       add_hook :quit,          method(:exit!)
 
       always do
@@ -25,11 +27,11 @@ module Scorched
     end
 
     def update
-      Entity.descendants.each do |klass|
-        klass.all.each(&:update)
+      [Entity, Manager].each do |klass|
+        klass.descendants.each do |klass|
+          klass.all.each(&:update)
+        end
       end
-
-      input_manager.update
 
       update_scene
     end
@@ -37,19 +39,23 @@ module Scorched
     def render(win)
       win.clear Ray::Color.new(153, 153, 204)
 
-      Entity.descendants.each do |klass|
-        klass.all.each do |entity|
-          entity.render(win, height)
+      [Entity, Manager].each do |klass|
+        klass.descendants.each do |klass|
+          klass.all.each do |entity|
+            entity.render(win, height)
+          end
         end
       end
 
       terrian.render(win, height)
-      ui_manager.render(win, height)
     end
 
+
     def cleanup
-      Entity.descendants.each do |klass|
-        klass.all.each(&:destroy)
+      [Entity, Manager].each do |klass|
+        klass.descendants.each do |klass|
+          klass.all.each(&:destroy)
+        end
       end
     end
 

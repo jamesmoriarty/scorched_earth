@@ -1,15 +1,15 @@
 require "ray"
 
-require_relative "version"
-require_relative "ext/array"
 require_relative "ext/math"
-require_relative "ext/ray/color"
-require_relative "input_manager"
-require_relative "ui_manager"
+require_relative "version"
+require_relative "collection"
 require_relative "terrian"
 require_relative "entities/player"
 require_relative "entities/shot"
 require_relative "entities/explosion"
+require_relative "managers/input"
+require_relative "managers/ui"
+require_relative "managers/collision"
 require_relative "scenes/game_scene"
 
 module Scorched
