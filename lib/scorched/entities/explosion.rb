@@ -4,8 +4,10 @@ module Scorched
   class Explosion < Entity
     attr_accessor :radius
 
-    def radius
-      @radius ||= 10
+    def initialize(*args)
+      super
+
+      @radius = 10
     end
 
     def update

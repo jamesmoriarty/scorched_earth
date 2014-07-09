@@ -15,7 +15,7 @@ module Scorched
     private
 
     def collisison?(shot)
-      shot.x >= 0 && shot.x < terrian.width && shot.y <= terrian[shot.x]
+      shot.x >= 0 && shot.x < terrian.width && shot.y < terrian[shot.x]
     end
 
     def remove_terrian(shot)
