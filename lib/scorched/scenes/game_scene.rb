@@ -25,10 +25,8 @@ module Scorched
     end
 
     def update
-      [Entity, Manager].each do |klass|
-        klass.descendants.each do |klass|
-          klass.all.each(&:update)
-        end
+      GameObject.descendants.each do |klass|
+        klass.all.each(&:update)
       end
 
       update_scene
