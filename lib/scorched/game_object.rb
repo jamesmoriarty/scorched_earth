@@ -1,26 +1,26 @@
-module Collection
-  def self.included(klass)
-    klass.extend ClassMethods
+class GameObject
+  def update
+  end
+
+  def render(win, height)
   end
 
   def destroy
     self.class.all.delete(self)
   end
 
-  module ClassMethods
-    attr_accessor :all
-
+  class << self
     def all
-      @all ||= []
+      @collection ||= []
+    end
+
+    def get(index = 0)
+      @collection[index]
     end
 
     def create(*args)
       all << new(*args)
       all.last
-    end
-
-    def get(index = 0)
-      all[index]
     end
 
     def descendants

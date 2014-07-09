@@ -7,7 +7,8 @@ module Scorched
     end
 
     def update
-      move
+      super
+
       gravity
     end
 

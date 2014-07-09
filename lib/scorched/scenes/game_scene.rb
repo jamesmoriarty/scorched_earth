@@ -9,9 +9,7 @@ module Scorched
       @cycles         = rand(10)
       @terrian        = Terrian.new(width, height, cycles)
 
-      Input.create(self)
-      Collision.create(self)
-      UI.create(self)
+      [Input, Collision, UI].each { |klass| klass.create(self) }
 
       2.times { Player.create(terrian: terrian) }
     end
@@ -39,11 +37,9 @@ module Scorched
     def render(win)
       win.clear Ray::Color.new(153, 153, 204)
 
-      [Entity, Manager].each do |klass|
-        klass.descendants.each do |klass|
-          klass.all.each do |entity|
-            entity.render(win, height)
-          end
+      GameObject.descendants.each do |klass|
+        klass.all.each do |entity|
+          entity.render(win, height)
         end
       end
 
@@ -52,10 +48,8 @@ module Scorched
 
 
     def cleanup
-      [Entity, Manager].each do |klass|
-        klass.descendants.each do |klass|
-          klass.all.each(&:destroy)
-        end
+      GameObject.descendants.each do |klass|
+        klass.all.each(&:destroy)
       end
     end
 

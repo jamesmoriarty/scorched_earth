@@ -1,11 +1,13 @@
-require "delegate"
-require_relative "../collection"
+require "forwardable"
+require_relative "../game_object"
 
 module Scorched
-  class Manager < SimpleDelegator
-    include Collection
+  class Manager < GameObject
+    extend Forwardable
+    def_delegators :@game, :window, :width, :height, :mouse_pos, :terrian, :current_player, :next_player
 
-    def update; end
-    def render(win, height); end
+    def initialize(game)
+      @game = game
+    end
   end
 end
