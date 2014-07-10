@@ -1,17 +1,17 @@
 module Scorched
   class GameScene < Ray::Scene
-    attr_accessor :width, :height, :cycles, :terrian
+    attr_accessor :width, :height, :cycles, :terrain
 
     scene_name :game
 
     def setup
       @width, @height = window.size.to_a
       @cycles         = rand(10)
-      @terrian        = Terrian.new(width, height, cycles)
+      @terrain        = Terrain.new(width, height, cycles)
 
       [Input, Collision, UI].each { |klass| klass.create(self) }
 
-      2.times { Player.create(terrian: terrian) }
+      2.times { Player.create(terrain: terrain) }
     end
 
     def register
@@ -41,7 +41,7 @@ module Scorched
         end
       end
 
-      terrian.render(win, height)
+      terrain.render(win, height)
     end
 
 

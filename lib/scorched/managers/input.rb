@@ -25,7 +25,7 @@ module Scorched
         velocity_x: velocity_x,
         velocity_y: velocity_y,
         angle:      angle,
-        terrian:    terrian
+        terrain:    terrain
       )
 
       next_player

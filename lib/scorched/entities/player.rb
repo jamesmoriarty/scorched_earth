@@ -16,7 +16,7 @@ module Scorched
 
     def initialize(*args)
       super
-      @x       = rand(terrian.size)
+      @x       = rand(terrain.size)
       @color   = self.class.random_color
     end
 
@@ -25,7 +25,7 @@ module Scorched
     end
 
     def y
-      terrian[x]
+      terrain[x]
     end
   end
 end

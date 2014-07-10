@@ -6,7 +6,7 @@ module Scorched
       Shot.all.each do |shot|
         if collisison?(shot)
           remove_players(shot)
-          remove_terrian(shot)
+          remove_terrain(shot)
           remove_shot(shot)
         end
       end
@@ -15,11 +15,11 @@ module Scorched
     private
 
     def collisison?(shot)
-      shot.x >= 0 && shot.x < terrian.width && shot.y < terrian[shot.x]
+      shot.x >= 0 && shot.x < terrain.width && shot.y < terrain[shot.x]
     end
 
-    def remove_terrian(shot)
-      terrian.deform(shot.x, shot.radius)
+    def remove_terrain(shot)
+      terrain.deform(shot.x, shot.radius)
     end
 
     def remove_players(shot)

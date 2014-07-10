@@ -1,5 +1,5 @@
 module Scorched
-  class Terrian < Array
+  class Terrain < Array
     alias :width :size
 
     def initialize(width, height, cycles)
