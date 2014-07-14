@@ -4,10 +4,6 @@
 
 A simple clone of the classic game Scorched Earth in Ruby.
 
-## Screenshots
-
-![Screenshot0](https://raw.githubusercontent.com/jamesmoriarty/scorched-earth-rb/master/doc/screenshot-00.gif)
-
 ## Installation [![Gem Version](https://badge.fury.io/rb/scorched_earth.svg)](http://badge.fury.io/rb/scorched_earth)
 
     brew install glew
