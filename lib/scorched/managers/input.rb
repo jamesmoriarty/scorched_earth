@@ -19,6 +19,8 @@ module Scorched
     end
 
     def mouse_release(*args)
+      return unless current_player
+
       Shot.create(
         x:          current_player.x,
         y:          current_player.y,
