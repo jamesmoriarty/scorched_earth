@@ -1,7 +1,7 @@
-require_relative "./manager"
+require_relative "./component"
 
 module Scorched
-  class Input < Manager
+  class Input < Component
     include Ray::Helper
 
     attr_accessor :mouse_press_at

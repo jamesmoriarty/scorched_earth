@@ -1,7 +1,7 @@
-require_relative "./manager"
+require_relative "./component"
 
 module Scorched
-  class UI < Manager
+  class UI < Component
     def render(win, height)
       if current_player
         win.draw Ray::Polygon.line([current_player.x, height - current_player.y], mouse_pos, 2, current_player.color)

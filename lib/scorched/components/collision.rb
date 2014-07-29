@@ -1,7 +1,7 @@
-require_relative "./manager"
+require_relative "./component"
 
 module Scorched
-  class Collision < Manager
+  class Collision < Component
     def update
       Shot.all.each do |shot|
         if collisison?(shot)
