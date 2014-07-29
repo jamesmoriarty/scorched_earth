@@ -7,7 +7,7 @@ module Scorched
     attr_accessor :mouse_press_at
 
     def update
-      if  holding?(key :right) || holding?(key :d)
+      if holding?(key :right) || holding?(key :d)
         current_player.x = [current_player.x += 1, width - 1].min
       elsif holding?(key :left) || holding?(key :a)
         current_player.x = [current_player.x -= 1, 0].max
