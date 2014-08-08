@@ -1,10 +1,8 @@
 module Scorched
   class GameObject
-    def update
-    end
+    def update; end
 
-    def render(win, height)
-    end
+    def render(win, height); end
 
     def destroy
       self.class.all.delete(self)
