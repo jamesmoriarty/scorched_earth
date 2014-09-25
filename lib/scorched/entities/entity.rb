@@ -1,4 +1,4 @@
-require_relative "../game_object"
+require "game_object"
 
 module Scorched
   class Entity < GameObject

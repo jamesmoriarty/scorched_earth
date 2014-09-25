@@ -1,5 +1,5 @@
 require "forwardable"
-require_relative "../game_object"
+require "game_object"
 
 module Scorched
   class Component < GameObject

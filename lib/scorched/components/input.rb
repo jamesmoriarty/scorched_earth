@@ -1,4 +1,4 @@
-require_relative "./component"
+require "components/component"
 
 module Scorched
   class Input < Component

@@ -1,3 +1,11 @@
+require "terrain"
+require "entities/player"
+require "entities/shot"
+require "entities/explosion"
+require "components/input"
+require "components/ui"
+require "components/collision"
+
 module Scorched
   class GameScene < Ray::Scene
     attr_accessor :width, :height, :cycles, :terrain
