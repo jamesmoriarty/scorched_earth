@@ -9,7 +9,7 @@ module Entity
     raise NotImplementedError
   end
 
-  def draw(win, y)
+  def draw(win)
     raise NotImplementedError
   end
 end

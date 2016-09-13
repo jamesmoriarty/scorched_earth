@@ -1,17 +1,10 @@
-require "ray"
-require "scorched/entity"
-
 module Scorched
   class Player
-    include Entity
-
-    attr_reader :color
+    attr_reader :x, :color
 
     def initialize(x, color)
       @x, @color = x, color
     end
-
-    def update; end
 
     def draw(win, y)
       width, height = *win.size

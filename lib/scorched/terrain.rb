@@ -1,6 +1,3 @@
-require "ray"
-require "scorched/entity"
-
 module Scorched
   class Terrain < Array
     def initialize(width, height, cycles)
