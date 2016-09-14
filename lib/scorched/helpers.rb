@@ -24,10 +24,17 @@ module Scorched
       - Math.cos(degrees_to_radians(degrees)) * radius
     end
 
-    def random_color
-      Ray::Color.new(rand(255), rand(255), rand(255))
+    def circle(radius)
+      x = -radius
+
+      loop do
+        break unless x <= radius
+        y = Math.sqrt(radius**2 - x**2)
+        yield(x, y)
+        x += 1
+      end
     end
 
-    module_function :angle, :radians_to_degrees, :degrees_to_radians, :normalize_degrees, :offset_x, :offset_y
+    module_function :angle, :circle, :radians_to_degrees, :degrees_to_radians, :normalize_degrees, :offset_x, :offset_y
   end
 end
