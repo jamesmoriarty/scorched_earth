@@ -24,6 +24,10 @@ module Scorched
       - Math.cos(degrees_to_radians(degrees)) * radius
     end
 
+    def random_color
+      Ray::Color.new(rand(255), rand(255), rand(255))
+    end
+
     module_function :angle, :radians_to_degrees, :degrees_to_radians, :normalize_degrees, :offset_x, :offset_y
   end
 end

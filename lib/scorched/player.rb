@@ -2,6 +2,8 @@ module Scorched
   class Player
     attr_reader :x, :color
 
+    CIRCLE_RADIUS = 10
+
     def initialize(x, color)
       @x, @color = x, color
     end
@@ -9,7 +11,7 @@ module Scorched
     def draw(win, y)
       width, height = *win.size
 
-      win.draw Ray::Polygon.circle([x, height - y], 10, color)
+      win.draw Ray::Polygon.circle([x, height - y], CIRCLE_RADIUS, color)
     end
   end
 end
