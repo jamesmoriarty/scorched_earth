@@ -14,7 +14,7 @@ module Scorched
     end
 
     def random
-      scale, sum   = 1.0, 0.0
+      scale, sum   = 0.5, 0.0
       random_index = rand colors.size
 
       mix_ratios = colors.each_with_index.map do |color, index|

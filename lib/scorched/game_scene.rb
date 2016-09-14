@@ -25,7 +25,7 @@ module Scorched
 
     def setup
       width, height  = *window.size
-      @color_palette = ColorPalette.new(Ray::Color.red, Ray::Color.green, Ray::Color.blue)
+      @color_palette = ColorPalette.new(Ray::Color.yellow, Ray::Color.blue, Ray::Color.red)
       @entities      = []
       @players       = 2.times.map { Player.new rand(width), color_palette.random }
       @terrain       = Terrain.new width, height, rand(10), color_palette.get(:terrain)
