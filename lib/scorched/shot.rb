@@ -1,15 +1,18 @@
-require "scorched/entity"
 require "scorched/helpers"
 
 module Scorched
   class Shot
-    include Entity
     include Helpers
 
     GRAVITY     = 2000
     LINE_LENGTH = 10
-    LINE_WIDTH  = 2
-    LINE_COLOR  = Ray::Color.black
+    LINE_WIDTH  = 3
+
+    attr_reader :x, :y, :velocity_x, :velocity_y, :color
+
+    def initialize(x, y, velocity_x, velocity_y, color)
+      @x, @y, @velocity_x, @velocity_y, @color = x, y, velocity_x, velocity_y, color
+    end
 
     def update(delta)
       @velocity_y -= GRAVITY * delta
@@ -23,7 +26,7 @@ module Scorched
       x1, y1        = x, height - y
       x2, y2        = x1 + offset_x(degrees, LINE_LENGTH), y1 + offset_y(degrees, LINE_LENGTH)
 
-      win.draw Ray::Polygon.line([x1, y1], [x2, y2], LINE_WIDTH, LINE_COLOR)
+      win.draw Ray::Polygon.line([x1, y1], [x2, y2], LINE_WIDTH, color)
     end
   end
 end

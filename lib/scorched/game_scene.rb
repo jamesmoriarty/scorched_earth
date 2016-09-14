@@ -17,19 +17,14 @@ module Scorched
       add_hook :mouse_press,             method(:mouse_press)
 
       always do
-        @entities
-          .each { |entity| entity.update 1.0 / frames_per_second }
-          .reject! do |entity|
-            if entity.y < terrain[entity.x]
-              terrain.bite(entity.x, 25)
-              true
-            end
-          end
+        @entities.each { |entity| entity.update 1.0 / frames_per_second }
+        @entities, @dead = *@entities.partition { |entity| entity.y > terrain[entity.x] }
+        @dead.each { |entity| terrain.bite(entity.x, 25) }
       end
     end
 
     def setup
-      width, height = *window.size
+      width, height  = *window.size
       @color_palette = ColorPalette.new(Ray::Color.red, Ray::Color.green, Ray::Color.blue)
       @entities      = []
       @players       = 2.times.map { Player.new rand(width), color_palette.random }
@@ -43,7 +38,7 @@ module Scorched
         player.draw win, terrain[player.x]
       end
 
-      terrain.draw(win)
+      terrain.draw win
 
       entities.each do |entity|
         entity.draw win
@@ -69,7 +64,7 @@ module Scorched
       velocity_x    = offset_x(degrees, delta)
       velocity_y    = offset_y(degrees, delta)
 
-      @entities << Shot.new(current_player.x, terrain[current_player.x], velocity_x, velocity_y)
+      @entities << Shot.new(current_player.x, terrain[current_player.x], velocity_x, velocity_y, color_palette.random)
 
       next_player
     end
