@@ -51,20 +51,21 @@ module Scorched
     end
 
     def mouse_release
-      delta         = Time.now - mouse_press_at
+      delta         = (Time.now - mouse_press_at) * 1000 + 1000
       width, height = *window.size
       x1, y1        = *mouse_pos
       x2, y2        = current_player.x, height - terrain[current_player.x]
-      degrees       = angle(y2 - y1, x2 - x1)
-      x_velocity    = offset_x(degrees, delta)
-      y_velocity    = offset_y(degrees, delta)
+      degrees       = angle(y2 - y1, x2 - x1) + 180
+      velocity_x    = offset_x(degrees, delta)
+      velocity_y    = offset_y(degrees, delta)
 
+      puts "delta    = #{delta}"
       puts "(x1, y1) = #{x1}, #{y1}"
       puts "(x2, y2) = #{x2}, #{y2}"
       puts "degrees  = #{degrees}"
-      puts "delta    = #{delta}"
+      puts "(velocity_x, velocity_y) = #{velocity_x}, #{velocity_y}"
 
-      @entities << Shot.new(current_player.x, terrain[current_player.x], x_velocity, y_velocity)
+      @entities << Shot.new(current_player.x, terrain[current_player.x], velocity_x, velocity_y)
     end
 
     def mouse_press
