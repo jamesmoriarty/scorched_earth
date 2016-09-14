@@ -46,8 +46,6 @@ module Scorched
 
     def next_player
       players.rotate!
-
-      current_player
     end
 
     def mouse_release
