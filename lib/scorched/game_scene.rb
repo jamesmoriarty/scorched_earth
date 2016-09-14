@@ -1,6 +1,7 @@
 require "scorched/helpers"
 require "scorched/terrain"
 require "scorched/player"
+require "scorched/shot"
 
 module Scorched
   class GameScene < Ray::Scene
@@ -50,15 +51,20 @@ module Scorched
     end
 
     def mouse_release
+      delta         = Time.now - mouse_press_at
       width, height = *window.size
       x1, y1        = *mouse_pos
       x2, y2        = current_player.x, height - terrain[current_player.x]
       degrees       = angle(y2 - y1, x2 - x1)
+      x_velocity    = offset_x(degrees, delta)
+      y_velocity    = offset_y(degrees, delta)
 
       puts "(x1, y1) = #{x1}, #{y1}"
       puts "(x2, y2) = #{x2}, #{y2}"
       puts "degrees  = #{degrees}"
-      puts "delta    = #{Time.now - mouse_press_at}"
+      puts "delta    = #{delta}"
+
+      @entities << Shot.new(current_player.x, terrain[current_player.x], x_velocity, y_velocity)
     end
 
     def mouse_press
