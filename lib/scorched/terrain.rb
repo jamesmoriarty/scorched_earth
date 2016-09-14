@@ -1,5 +1,9 @@
+require "scorched/helpers"
+
 module Scorched
   class Terrain < Array
+    include Helpers
+
     attr_reader :color
 
     def initialize(width, height, cycles, color)
@@ -18,6 +22,23 @@ module Scorched
       width, height = *win.size
 
       win.draw image height
+    end
+
+    def bite(center_x, radius)
+      center_y = self[center_x]
+
+      circle(radius) do |offset_x, offset_y|
+        x = center_x + offset_x
+        y = self[x]
+        next unless y
+        z = offset_y * 2
+        q = center_y - offset_y
+        q = y if q > y
+
+        self[x] = [y - z, q, 0].max
+      end
+
+      @cache = nil
     end
 
     def image(height)

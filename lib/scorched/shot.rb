@@ -1,4 +1,5 @@
 require "scorched/entity"
+require "scorched/helpers"
 
 module Scorched
   class Shot

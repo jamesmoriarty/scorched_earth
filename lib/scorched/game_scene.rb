@@ -2,29 +2,42 @@ require "scorched/helpers"
 require "scorched/terrain"
 require "scorched/player"
 require "scorched/shot"
+require "scorched/color_palette"
 
 module Scorched
   class GameScene < Ray::Scene
     include Helpers
 
-    attr_reader :entities, :players, :terrain
+    attr_reader :color_palette, :entities, :players, :terrain
 
     def register
       add_hook :quit,                    method(:exit!)
       add_hook :key_press, key(:escape), method(:exit!)
       add_hook :mouse_release,           method(:mouse_release)
       add_hook :mouse_press,             method(:mouse_press)
+
+      always do
+        @entities
+          .each { |entity| entity.update 1.0 / frames_per_second }
+          .reject! do |entity|
+            if entity.y < terrain[entity.x]
+              terrain.bite(entity.x, 25)
+              true
+            end
+          end
+      end
     end
 
     def setup
       width, height = *window.size
-      @entities     = []
-      @players      = 2.times.map { Player.new rand(width), random_color }
-      @terrain      = Terrain.new width, height, rand(10), random_color
+      @color_palette = ColorPalette.new(Ray::Color.red, Ray::Color.green, Ray::Color.blue)
+      @entities      = []
+      @players       = 2.times.map { Player.new rand(width), color_palette.random }
+      @terrain       = Terrain.new width, height, rand(10), color_palette.get(:terrain)
     end
 
     def render(win)
-      win.clear Ray::Color.white
+      win.clear color_palette.get(:sky)
 
       players.each do |player|
         player.draw win, terrain[player.x]
@@ -33,7 +46,6 @@ module Scorched
       terrain.draw(win)
 
       entities.each do |entity|
-        entity.update 1.0 / frames_per_second
         entity.draw win
       end
     end
