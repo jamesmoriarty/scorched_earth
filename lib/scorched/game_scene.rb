@@ -74,11 +74,3 @@ module Scorched
     end
   end
 end
-
-# require "pry"; binding.pry
-
-# puts "delta    = #{delta}"
-# puts "(x1, y1) = #{x1}, #{y1}"
-# puts "(x2, y2) = #{x2}, #{y2}"
-# puts "degrees  = #{degrees}"
-# puts "(velocity_x, velocity_y) = #{velocity_x}, #{velocity_y}"
