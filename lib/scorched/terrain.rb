@@ -28,7 +28,7 @@ module Scorched
          target.update
        end
 
-       Ray::Sprite.new(image, at: [0, 0])
+       Ray::Sprite.new image, at: [0, 0]
      end
    end
   end
