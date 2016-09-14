@@ -1,6 +1,10 @@
 module Scorched
   class Terrain < Array
+    attr_reader :color
+
     def initialize(width, height, cycles)
+      @color = Ray::Color.new(rand(255), rand(255), rand(255))
+
       super(width) do |index|
         Math.sin(index.to_f / width.to_f * cycles.to_f) * height / 4 + (height / 4).to_i
       end
@@ -22,7 +26,7 @@ module Scorched
 
        Ray::ImageTarget.new(image) do |target|
          each_with_index do |y, x|
-           target.draw Ray::Polygon.line([x, height], [x, height - y], 1, Ray::Color.new(204, 204, 153))
+           target.draw Ray::Polygon.line([x, height], [x, height - y], 1, color)
          end
 
          target.update
