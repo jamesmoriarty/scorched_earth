@@ -59,13 +59,9 @@ module Scorched
       velocity_x    = offset_x(degrees, delta)
       velocity_y    = offset_y(degrees, delta)
 
-      puts "delta    = #{delta}"
-      puts "(x1, y1) = #{x1}, #{y1}"
-      puts "(x2, y2) = #{x2}, #{y2}"
-      puts "degrees  = #{degrees}"
-      puts "(velocity_x, velocity_y) = #{velocity_x}, #{velocity_y}"
-
       @entities << Shot.new(current_player.x, terrain[current_player.x], velocity_x, velocity_y)
+
+      next_player
     end
 
     def mouse_press
@@ -75,3 +71,9 @@ module Scorched
 end
 
 # require "pry"; binding.pry
+
+# puts "delta    = #{delta}"
+# puts "(x1, y1) = #{x1}, #{y1}"
+# puts "(x2, y2) = #{x2}, #{y2}"
+# puts "degrees  = #{degrees}"
+# puts "(velocity_x, velocity_y) = #{velocity_x}, #{velocity_y}"
