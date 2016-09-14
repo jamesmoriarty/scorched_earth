@@ -1,8 +1,11 @@
+require "scorched/helpers"
 require "scorched/terrain"
 require "scorched/player"
 
 module Scorched
   class GameScene < Ray::Scene
+    include Helpers
+
     attr_reader :entities, :players, :terrain
 
     def register
@@ -22,14 +25,14 @@ module Scorched
     def render(win)
       win.clear Ray::Color.white
 
-      terrain.draw(win)
-
       players.each do |player|
         player.draw win, terrain[player.x]
       end
 
+      terrain.draw(win)
+
       entities.each do |entity|
-        entity.update
+        entity.update 1.0 / frames_per_second
         entity.draw win
       end
     end
@@ -50,11 +53,12 @@ module Scorched
       width, height = *window.size
       x1, y1        = *mouse_pos
       x2, y2        = current_player.x, height - terrain[current_player.x]
-      radians       = Math.atan2(y2 - y1, x2 - x1)
-      degrees       = radians * (180 / Math::PI)
+      degrees       = angle(y2 - y1, x2 - x1)
 
       puts "(x1, y1) = #{x1}, #{y1}"
       puts "(x2, y2) = #{x2}, #{y2}"
+      puts "degrees  = #{degrees}"
+      puts "delta    = #{Time.now - mouse_press_at}"
     end
 
     def mouse_press

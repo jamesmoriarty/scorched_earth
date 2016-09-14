@@ -1,11 +1,11 @@
 module Entity
-  attr_reader :x, :y
+  attr_reader :x, :y, :velocity_x, :velocity_y
 
-  def intialize(x, y)
-    @x, @y = x, y
+  def intialize(x, y, velocity_x, velocity_y)
+    @x, @y, @velocity_x, @velocity_y = x, y, velocity_x, velocity_y
   end
 
-  def update
+  def update(delta)
     raise NotImplementedError
   end
 
