@@ -1,7 +1,7 @@
 module Entity
   attr_reader :x, :y, :velocity_x, :velocity_y
 
-  def intialize(x, y, velocity_x, velocity_y)
+  def initialize(x, y, velocity_x, velocity_y)
     @x, @y, @velocity_x, @velocity_y = x, y, velocity_x, velocity_y
   end
 
