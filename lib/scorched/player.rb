@@ -9,7 +9,7 @@ module Scorched
     def draw(win, y)
       width, height = *win.size
 
-      win.draw Ray::Polygon.circle([x, height - y], 25, color)
+      win.draw Ray::Polygon.circle([x, height - y], 10, color)
     end
   end
 end

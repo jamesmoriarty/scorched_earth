@@ -4,7 +4,7 @@ module Scorched
   class Shot
     include Entity
 
-    GRAVITY = 1000
+    GRAVITY = 2000
 
     def update(delta)
       @velocity_y -= GRAVITY * delta
@@ -15,7 +15,7 @@ module Scorched
     def draw(win)
       width, height = *win.size
 
-      win.draw Ray::Polygon.circle([x, height - y], 25, Ray::Color.black)
+      win.draw Ray::Polygon.circle([x, height - y], 5, Ray::Color.black)
     end
   end
 end
