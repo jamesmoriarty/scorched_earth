@@ -38,11 +38,11 @@ module Scorched
         self[x] = [y - z, q, 0].max
       end
 
-      @cache = nil
+      clear_cache!
     end
 
     def image(height)
-      @cache ||= begin
+      cache do
         image = Ray::Image.new [width, height]
 
         Ray::ImageTarget.new(image) do |target|
@@ -55,6 +55,18 @@ module Scorched
 
         Ray::Sprite.new image, at: [0, 0]
       end
+    end
+
+    private
+
+    def cache(&block)
+      @cache ||= begin
+        block.call
+      end
+    end
+
+    def clear_cache!
+      @cache = nil
     end
   end
 end
