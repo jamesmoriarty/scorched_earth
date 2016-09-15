@@ -18,7 +18,15 @@ module Scorched
       always do
         @entities.each { |entity| entity.update 1.0 / frames_per_second }
         @entities, @dead = *@entities.partition { |entity| entity.y >= terrain.fetch(entity.x, entity.y) }
-        @dead.each { |entity| terrain.bite(entity.x, 25) }
+        @dead.each do |entity|
+          radius = 50
+          terrain.bite(entity.x, radius)
+          @players.each do |player|
+            if inside_radius?(entity.x - player.x, 0, radius * 2)
+              setup
+            end
+          end
+        end
       end
     end
 
