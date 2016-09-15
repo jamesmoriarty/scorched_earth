@@ -2,7 +2,7 @@
 
 [![Code Climate](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb/badges/gpa.svg)](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb) [![Test Coverage](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb/badges/coverage.svg)](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb/coverage)
 
-A little clone of [Scorched_Earth](https://en.wikipedia.org/wiki/Scorched_Earth_&#40;video_game&#41;) in the Ruby Programming Language.
+A little [Scorched Earth](https://en.wikipedia.org/wiki/Scorched_Earth_&#40;video_game&#41;) clone in the Ruby Programming Language.
 
 With a segue into procedurally generated color palettes:
 - [TriadMixing](http://devmag.org.za/2012/07/29/how-to-choose-colours-procedurally-algorithms/)
