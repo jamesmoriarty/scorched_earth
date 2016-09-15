@@ -16,12 +16,12 @@ module Scorched
     def next_color
       loop do
         color = random
-        return color if not close?(color)
+        return color if not near_match?(color)
         puts "#{color}"
       end
     end
 
-    def close?(color1)
+    def near_match?(color1)
       cache.values.any? do |color2|
         a, b      = Color::RGB.new(*color1.to_a[0, 2]), Color::RGB.new(*color2.to_a[0, 2])
         delta_e94 = a.delta_e94(a.to_lab, b.to_lab)
