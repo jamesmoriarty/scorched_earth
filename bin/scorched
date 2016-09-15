@@ -6,7 +6,9 @@ title   = "scorched v#{Scorched::VERSION}-#{`git rev-parse HEAD || echo 'r'`}"
 options = { fullscreen: true, size: [1280, 720] }
 
 Ray::Game.new(title, options) do
-  scene(:game, Scorched::GameScene)
+  register { add_hook :quit, method(:exit!) }
+
+  scene :game, Scorched::GameScene
 
   scenes << :game
 end.run

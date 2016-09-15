@@ -11,7 +11,6 @@ module Scorched
     attr_reader :color_palette, :entities, :players, :terrain
 
     def register
-      add_hook :quit,                    method(:exit!)
       add_hook :key_press, key(:escape), method(:exit!)
       add_hook :mouse_release,           method(:mouse_release)
       add_hook :mouse_press,             method(:mouse_press)
