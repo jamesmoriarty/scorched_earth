@@ -1,12 +1,20 @@
 # Scorched
 
-[![Code Climate](https://codeclimate.com/github/jamesmoriarty/react-rss-reader/badges/gpa.svg)](https://codeclimate.com/github/jamesmoriarty/react-rss-reader) [![Test Coverage](https://codeclimate.com/github/jamesmoriarty/react-rss-reader/badges/coverage.svg)](https://codeclimate.com/github/jamesmoriarty/react-rss-reader/coverage) [![Issue Count](https://codeclimate.com/github/jamesmoriarty/react-rss-reader/badges/issue_count.svg)](https://codeclimate.com/github/jamesmoriarty/react-rss-reader)
+[![Code Climate](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb/badges/gpa.svg)](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb) [![Test Coverage](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb/badges/coverage.svg)](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb/coverage)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/scorched`. To experiment with that code, run `bin/console` for an interactive prompt.
+A little clone of [Scorched_Earth](https://en.wikipedia.org/wiki/Scorched_Earth_&#40;video_game&#41;) in the Ruby Programming Language.
 
-TODO: Delete this and the text above, and describe your gem
+With a segue into procedurally generated color palettes:
+- [TriadMixing](http://devmag.org.za/2012/07/29/how-to-choose-colours-procedurally-algorithms/)
+- [CIE94](https://en.wikipedia.org/wiki/Color_difference#CIE94)
+
+![Color Palettes](https://pbs.twimg.com/media/CsYukUuUMAECQG3.jpg)]
 
 ## Installation
+
+```
+brew install glew libsndfile
+```
 
 Add this line to your application's Gemfile:
 
