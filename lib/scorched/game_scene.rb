@@ -25,14 +25,14 @@ module Scorched
 
     def setup
       width, height  = *window.size
-      @color_palette = ColorPalette.new(Ray::Color.yellow, Ray::Color.blue, Ray::Color.red)
+      @color_palette = ColorPalette.new(Ray::Color.green, Ray::Color.blue, Ray::Color.white)
       @entities      = []
-      @players       = 2.times.map { Player.new rand(width), color_palette.random }
-      @terrain       = Terrain.new width, height, rand(10), color_palette.get(:terrain)
+      @players       = 2.times.map { |index| Player.new rand(width), color_palette.get("player_#{index}") }
+      @terrain       = Terrain.new width, height, rand(10), color_palette.get("terrain")
     end
 
     def render(win)
-      win.clear color_palette.get(:sky)
+      win.clear color_palette.get("sky")
 
       players.each do |player|
         player.draw win, terrain[player.x]
@@ -64,7 +64,7 @@ module Scorched
       velocity_x    = offset_x(degrees, delta)
       velocity_y    = offset_y(degrees, delta)
 
-      @entities << Shot.new(current_player.x, terrain[current_player.x], velocity_x, velocity_y, color_palette.random)
+      @entities << Shot.new(current_player.x, terrain[current_player.x], velocity_x, velocity_y, Ray::Color.white)
 
       next_player
     end

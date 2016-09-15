@@ -2,7 +2,7 @@ module Scorched
   class Player
     attr_reader :x, :color
 
-    CIRCLE_RADIUS = 10
+    CIRCLE_RADIUS = 15
 
     def initialize(x, color)
       @x, @color = x, color

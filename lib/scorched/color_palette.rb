@@ -9,8 +9,20 @@ module Scorched
 
     def get(key)
       cache.fetch(key) do |key|
-        cache[key] = random
+        cache[key] = next_color
       end
+    end
+
+    def next_color
+      loop do
+        color = random
+        return color if not close?(color)
+        puts "#{color}"
+      end
+    end
+
+    def close?(color1)
+      cache.values.any? { |color2| (color1.hue - color2.hue).abs < 20 }
     end
 
     def random
