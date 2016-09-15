@@ -16,17 +16,7 @@ module Scorched
       add_hook :mouse_press,             method(:mouse_press)
 
       always do
-        @entities.each { |entity| entity.update 1.0 / frames_per_second }
-        @entities, @dead = *@entities.partition { |entity| entity.y >= terrain.fetch(entity.x, entity.y) }
-        @dead.each do |entity|
-          radius = 50
-          terrain.bite(entity.x, radius)
-          @players.each do |player|
-            if inside_radius?(entity.x - player.x, 0, radius * 2)
-              setup
-            end
-          end
-        end
+        update
       end
     end
 
@@ -36,6 +26,21 @@ module Scorched
       @entities      = []
       @players       = 2.times.map { |index| Player.new rand(width), color_palette.get("player_#{index}") }
       @terrain       = Terrain.new width, height, rand(10), color_palette.get("terrain")
+    end
+
+    def update
+      @entities.each { |entity| entity.update 1.0 / frames_per_second }
+      @entities, @dead = *@entities.partition { |entity| entity.y > terrain.fetch(entity.x, 0) }
+      @dead.each do |entity|
+        radius = 50
+        terrain.bite(entity.x, radius)
+        @players.each do |player|
+          if inside_radius?(entity.x - player.x, 0, radius * 2)
+            pop_scene
+            push_scene @scene_name
+          end
+        end
+      end
     end
 
     def render(win)
