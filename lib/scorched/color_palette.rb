@@ -32,7 +32,7 @@ module Scorched
     module Strategies
       module TriadMixing
         def self.call(colors, scale = 0.5, sum = 0.0, random_index = rand(colors.size - 1))
-          mix_ratios = colors.each_with_index.map do |color, index|
+          colors.each_with_index.map do |color, index|
             ratio = random_index == index ? rand * scale : rand
             sum  += ratio
             [color, ratio]
