@@ -22,7 +22,14 @@ module Scorched
     end
 
     def close?(color1)
-      cache.values.any? { |color2| (color1.hue - color2.hue).abs < 20 }
+      cache.values.any? do |color2|
+        a, b      = Color::RGB.new(*color1.to_a[0, 2]), Color::RGB.new(*color2.to_a[0, 2])
+        delta_e94 = a.delta_e94(a.to_lab, b.to_lab)
+
+        puts "delta_e94 = #{delta_e94}"
+
+        delta_e94 < 10
+      end
     end
 
     def random

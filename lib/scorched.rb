@@ -1,8 +1,8 @@
 require "ray"
+require "color"
 
 $:.unshift File.dirname(__FILE__)
 
-require "ext/ray/color"
 require "scorched/version"
 require "scorched/game_scene"
 
