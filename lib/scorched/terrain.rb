@@ -46,11 +46,13 @@ module Scorched
         image = Ray::Image.new [width, height]
 
         Ray::ImageTarget.new(image) do |target|
-         each_with_index do |y, x|
-           target.draw Ray::Polygon.line([x, height], [x, height - y], 1, color)
-         end
+          target.clear Ray::Color.new(0, 0, 0, 0)
 
-         target.update
+          each_with_index do |y, x|
+            target.draw Ray::Polygon.line([x, height], [x, height - y], 1, color)
+          end
+
+          target.update
         end
 
         Ray::Sprite.new image, at: [0, 0]
