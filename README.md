@@ -8,7 +8,7 @@ With a segue into procedurally generated color palettes:
 - [TriadMixing](http://devmag.org.za/2012/07/29/how-to-choose-colours-procedurally-algorithms/)
 - [CIE94](https://en.wikipedia.org/wiki/Color_difference#CIE94)
 
-![Color Palettes](https://pbs.twimg.com/media/CsYukUuUMAECQG3.jpg)]
+![Color Palettes](https://pbs.twimg.com/media/CsYukUuUMAECQG3.jpg)
 
 ## Installation
 
@@ -32,7 +32,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    $ scorched
 
 ## Development
 
