@@ -7,9 +7,9 @@ Gem::Specification.new do |spec|
   spec.name          = "scorched"
   spec.version       = Scorched::VERSION
   spec.authors       = ["James Moriarty"]
-  spec.email         = ["james.moriarty@rea-group.com"]
+  spec.email         = ["jamespaulmoriarty@gmail.com"]
 
-  spec.summary       = %q{A simple clone of the classic game Scorched Earth in Ruby.}
+  spec.summary       = %q{A simple clone of the classic game Scorched Earth.}
   spec.homepage      = "https://github.com/jamesmoriarty/scorched-rb/"
   spec.license       = "MIT"
 
@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   end
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = "exe"
+  spec.bindir        = "bin"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
