@@ -29,18 +29,13 @@ module Scorched
     end
 
     def update
+      radius = 50
       @entities.each { |entity| entity.update 1.0 / frames_per_second }
       @entities, @dead = *@entities.partition { |entity| entity.y > terrain.fetch(entity.x, 0) }
-      @dead.each do |entity|
-        radius = 50
-        terrain.bite(entity.x, radius)
-        @players.each do |player|
-          if inside_radius?(entity.x - player.x, 0, radius * 2)
-            pop_scene
-            push_scene @scene_name
-          end
-        end
-      end
+      @dead
+        .each     { |entity| terrain.bite(entity.x, radius) }
+        .select { |entity| @players.any? { |player| inside_radius?(entity.x - player.x, 0, radius) } }
+        .each { pop_scene and push_scene @scene_name }
     end
 
     def render(win)
