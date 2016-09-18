@@ -29,8 +29,8 @@ module ScorchedEarth
 
       loop do
         break unless x <= radius
-        y = Math.sqrt(radius**2 - x**2)
-        yield(x, y)
+        y = Math.sqrt radius**2 - x**2
+        yield x, y
         x += 1
       end
     end
