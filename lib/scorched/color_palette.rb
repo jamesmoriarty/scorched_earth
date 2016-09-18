@@ -1,10 +1,11 @@
 module Scorched
   class ColorPalette
-    attr_reader :colors, :cache
+    attr_reader :cache, :colors, :strategy
 
     def initialize(*colors)
-      @colors = colors
-      @cache  = {}
+      @cache    = {}
+      @colors   = colors
+      @strategy = Strategies::TriadMixing
     end
 
     def get(key)
@@ -15,7 +16,7 @@ module Scorched
 
     def next_color
       loop do
-        color = Strategies::TriadMixing.call(colors)
+        color = strategy.color(colors)
         return color if not near_match?(color)
       end
     end
@@ -31,15 +32,20 @@ module Scorched
 
     module Strategies
       module TriadMixing
-        def self.call(colors, scale = 0.5, sum = 0.0, random_index = rand(colors.size - 1))
+        def self.color(colors)
+          sum = 0.0
+
           colors.map do |color|
-            sum += ratio = random_index == colors.index(color) ? rand * scale : rand
+            sum += ratio = rand
+
             [color, ratio]
-          end.inject(Ray::Color.black) do |mix, (color, ratio)|
+          end.inject(Ray::Color.new(0, 0, 0)) do |mix, (color, ratio)|
+            scale = ratio / sum
+
             Ray::Color.new(
-              mix.red   + color.red   * (ratio / sum),
-              mix.green + color.green * (ratio / sum),
-              mix.blue  + color.blue  * (ratio / sum),
+              mix.red   + color.red   * scale,
+              mix.green + color.green * scale,
+              mix.blue  + color.blue  * scale,
             )
           end
         end
