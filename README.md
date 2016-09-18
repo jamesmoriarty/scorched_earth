@@ -1,8 +1,8 @@
-# Scorched
+# ScorchedEarth
 
 [![Code Climate](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb/badges/gpa.svg)](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb) [![Test Coverage](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb/badges/coverage.svg)](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb/coverage)
 
-A little [Scorched Earth](https://en.wikipedia.org/wiki/Scorched_Earth_&#40;video_game&#41;) clone in the Ruby Programming Language.
+A little [ScorchedEarth Earth](https://en.wikipedia.org/wiki/ScorchedEarth_Earth_&#40;video_game&#41;) clone in the Ruby Programming Language.
 
 With a segue into procedurally generated color palettes:
 - [TriadMixing](http://devmag.org.za/2012/07/29/how-to-choose-colours-procedurally-algorithms/)
@@ -19,7 +19,7 @@ brew install glew libsndfile
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'scorched'
+gem 'scorched_earth'
 ```
 
 And then execute:
@@ -28,7 +28,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install scorched
+    $ gem install scorched_earth
 
 ## Usage
 

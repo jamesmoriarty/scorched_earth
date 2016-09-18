@@ -1,4 +1,4 @@
-module Scorched
+module ScorchedEarth
   class Player
     attr_reader :x, :color
 

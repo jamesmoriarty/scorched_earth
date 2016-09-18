@@ -1,4 +1,4 @@
-module Scorched
+module ScorchedEarth
   class ColorPalette
     attr_reader :cache, :colors, :strategy
 

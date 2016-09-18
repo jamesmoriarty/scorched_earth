@@ -1,10 +1,10 @@
-require "scorched/helpers"
-require "scorched/terrain"
-require "scorched/player"
-require "scorched/shot"
-require "scorched/color_palette"
+require "scorched_earth/helpers"
+require "scorched_earth/terrain"
+require "scorched_earth/player"
+require "scorched_earth/shot"
+require "scorched_earth/color_palette"
 
-module Scorched
+module ScorchedEarth
   class GameScene < Ray::Scene
     include Helpers
 
@@ -35,7 +35,7 @@ module Scorched
       @dead
         .select { |entity| entity.x < terrain.width && entity.x > 0 }
         .each   { |entity| terrain.bite(entity.x, radius) }
-        .select { |entity| @players.any? { |player| inside_radius?(entity.x - player.x, 0, radius) } }
+        .select { |entity| players.any? { |player| inside_radius?(entity.x - player.x, 0, radius) } }
         .each   { pop_scene and push_scene @scene_name }
     end
 

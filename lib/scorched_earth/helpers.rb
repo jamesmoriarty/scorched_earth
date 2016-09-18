@@ -1,4 +1,4 @@
-module Scorched
+module ScorchedEarth
   module Helpers
     def normalize_degrees(degrees)
       (degrees + 360 * 2e10) % 360

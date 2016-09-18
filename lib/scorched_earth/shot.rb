@@ -1,6 +1,6 @@
-require "scorched/helpers"
+require "scorched_earth/helpers"
 
-module Scorched
+module ScorchedEarth
   class Shot
     include Helpers
 

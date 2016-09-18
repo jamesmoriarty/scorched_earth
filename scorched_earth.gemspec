@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'scorched/version'
+require 'scorched_earth/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "scorched_earth"
-  spec.version       = Scorched::VERSION
+  spec.version       = ScorchedEarth::VERSION
   spec.authors       = ["James Moriarty"]
   spec.email         = ["jamespaulmoriarty@gmail.com"]
 
-  spec.summary       = %q{A simple clone of the classic game Scorched Earth.}
-  spec.homepage      = "https://github.com/jamesmoriarty/scorched-rb/"
+  spec.summary       = %q{A simple clone of the classic game ScorchedEarth Earth.}
+  spec.homepage      = "https://github.com/jamesmoriarty/scorched-earth/"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
