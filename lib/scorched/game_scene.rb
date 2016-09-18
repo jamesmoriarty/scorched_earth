@@ -33,9 +33,10 @@ module Scorched
       @entities.each { |entity| entity.update 1.0 / frames_per_second }
       @entities, @dead = *@entities.partition { |entity| entity.y > terrain.fetch(entity.x, 0) }
       @dead
-        .each     { |entity| terrain.bite(entity.x, radius) }
+        .select { |entity| entity.x < terrain.width && entity.x > 0 }
+        .each   { |entity| terrain.bite(entity.x, radius) }
         .select { |entity| @players.any? { |player| inside_radius?(entity.x - player.x, 0, radius) } }
-        .each { pop_scene and push_scene @scene_name }
+        .each   { pop_scene and push_scene @scene_name }
     end
 
     def render(win)
