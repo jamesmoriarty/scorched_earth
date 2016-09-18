@@ -1,3 +1,5 @@
+require "scorched_earth/helpers"
+
 module ScorchedEarth
   class Mouse
     include Ray::Helper
