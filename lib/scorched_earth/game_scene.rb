@@ -35,10 +35,12 @@ module ScorchedEarth
     end
 
     def update
+      width, height  = *window.size
       radius = 50
       @entities.each { |entity| entity.update 1.0 / frames_per_second }
-      @entities, @dead = *@entities.partition { |entity| entity.y > terrain.fetch(entity.x, entity.y) }
+      @entities, @dead = *@entities.partition { |entity| terrain.fetch(entity.x, 0) < entity.y }
       @dead
+        .select { |entity| entity.is_a? Shot }
         .select { |entity| entity.x < terrain.width && entity.x > 0 }
         .each   { |entity| terrain.bite(entity.x, radius) }
         .each   { |entity| entities << Explosion.new(entity.x, entity.y) }
