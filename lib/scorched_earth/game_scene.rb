@@ -18,6 +18,7 @@ module ScorchedEarth
       add_hook :key_press, key(:escape), method(:exit!)
 
       on(:entity_created) { |entity| entities << entity }
+      on(:game_over)      { pop_scene and push_scene @scene_name }
 
       always do
         update
@@ -42,7 +43,7 @@ module ScorchedEarth
         .each   { |entity| terrain.bite(entity.x, radius) }
         .each   { |entity| @entities << Explosion.new(entity.x, entity.y) }
         .select { |entity| players.any? { |player| inside_radius?(entity.x - player.x, 0, radius) } }
-        .each   { pop_scene and push_scene @scene_name }
+        .each   { raise_event :game_over }
     end
 
     def render(win)
