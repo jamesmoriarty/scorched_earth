@@ -1,5 +1,8 @@
-sudo: false
+sudo: true
 language: ruby
 rvm:
   - 2.0.0
-before_install: gem install bundler -v 1.12.5
+before_install:
+  - gem install bundler -v 1.12.5
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libglew-dev libopenal-dev libsndfile1-dev
