@@ -37,11 +37,11 @@ module ScorchedEarth
     def update
       radius = 50
       @entities.each { |entity| entity.update 1.0 / frames_per_second }
-      @entities, @dead = *@entities.partition { |entity| entity.y > terrain.fetch(entity.x, 0) }
+      @entities, @dead = *@entities.partition { |entity| entity.y > terrain.fetch(entity.x, entity.y) }
       @dead
         .select { |entity| entity.x < terrain.width && entity.x > 0 }
         .each   { |entity| terrain.bite(entity.x, radius) }
-        .each   { |entity| @entities << Explosion.new(entity.x, entity.y) }
+        .each   { |entity| entities << Explosion.new(entity.x, entity.y) }
         .select { |entity| players.any? { |player| inside_radius?(entity.x - player.x, 0, radius) } }
         .each   { raise_event :game_over }
     end
