@@ -5,8 +5,8 @@ describe ScorchedEarth::GameScene do
     @game = Ray::Game.new("test")
     @game.scene(:game, ScorchedEarth::GameScene)
     @scene = @game.registered_scene(:game)
-    @scene.register
     @scene.setup
+    @scene.register
   end
 
   it("#players") { @scene.players.size.must_equal 2 }
