@@ -10,7 +10,7 @@ module ScorchedEarth
   class GameScene < Ray::Scene
     include Helpers
 
-    attr_reader :color_palette, :entities, :mouse, :players, :terrain
+    attr_reader :color_palette, :entities, :mouse, :players, :terrain, :scene_name
 
     def register
       mouse.register self
@@ -18,11 +18,9 @@ module ScorchedEarth
       add_hook :key_press, key(:escape), method(:exit!)
 
       on(:entity_created) { |entity| entities << entity }
-      on(:game_over)      { pop_scene and push_scene @scene_name }
+      on(:game_ending)    { |time| Time.now > time ? game_over : raise_event(:game_ending, time) }
 
-      always do
-        update
-      end
+      always { update }
     end
 
     def setup
@@ -45,7 +43,7 @@ module ScorchedEarth
         .each   { |entity| terrain.bite entity.x, radius  }
         .each   { |entity| entities << Explosion.new(entity.x, entity.y) }
         .select { |entity| players.any? { |player| inside_radius? entity.x - player.x, 0, radius } }
-        .each   { raise_event :game_over }
+        .each   { raise_event(:game_ending, Time.now + 0.25) }
     end
 
     def render(win)
@@ -62,6 +60,10 @@ module ScorchedEarth
       entities.each do |entity|
         entity.draw win
       end
+    end
+
+    def game_over
+      pop_scene and push_scene scene_name
     end
   end
 end
