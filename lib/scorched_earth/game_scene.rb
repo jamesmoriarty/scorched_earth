@@ -34,7 +34,7 @@ module ScorchedEarth
 
     def update
       width, height  = *window.size
-      radius = 50
+      radius         = 50
       @entities.each { |entity| entity.update 1.0 / frames_per_second }
       @entities, @dead = *@entities.partition { |entity| terrain.fetch(entity.x, 0) < entity.y }
       @dead
@@ -49,6 +49,10 @@ module ScorchedEarth
     def render(win)
       win.clear color_palette.get("sky")
 
+      entities.each do |entity|
+        entity.draw win
+      end
+
       players.each do |player|
         player.draw win, terrain[player.x]
       end
@@ -56,10 +60,6 @@ module ScorchedEarth
       mouse.draw win
 
       terrain.draw win
-
-      entities.each do |entity|
-        entity.draw win
-      end
     end
 
     def game_over
