@@ -42,9 +42,9 @@ module ScorchedEarth
       @dead
         .select { |entity| entity.is_a? Shot }
         .select { |entity| entity.x < terrain.width && entity.x > 0 }
-        .each   { |entity| terrain.bite(entity.x, radius) }
+        .each   { |entity| terrain.bite entity.x, radius  }
         .each   { |entity| entities << Explosion.new(entity.x, entity.y) }
-        .select { |entity| players.any? { |player| inside_radius?(entity.x - player.x, 0, radius) } }
+        .select { |entity| players.any? { |player| inside_radius? entity.x - player.x, 0, radius } }
         .each   { raise_event :game_over }
     end
 

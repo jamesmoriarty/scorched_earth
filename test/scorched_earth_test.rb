@@ -2,9 +2,9 @@ require 'test_helper'
 
 describe ScorchedEarth::GameScene do
   before do
-    @game = Ray::Game.new("test")
-    @game.scene(:game, ScorchedEarth::GameScene)
-    @scene = @game.registered_scene(:game)
+    @game = Ray::Game.new "test"
+    @game.scene :game, ScorchedEarth::GameScene
+    @scene = @game.registered_scene :game
     @scene.setup
     @scene.register
   end
