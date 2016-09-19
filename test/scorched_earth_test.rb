@@ -7,6 +7,7 @@ describe ScorchedEarth::GameScene do
     @scene = @game.registered_scene :game
     @scene.setup
     @scene.register
+    @scene.update
   end
 
   it("#players") { @scene.players.size.must_equal 2 }

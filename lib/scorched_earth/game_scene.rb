@@ -41,9 +41,9 @@ module ScorchedEarth
         .select { |entity| entity.is_a? Shot }
         .select { |entity| entity.x < terrain.width && entity.x > 0 }
         .each   { |entity| terrain.bite entity.x, radius  }
-        .each   { |entity| entities << Explosion.new(entity.x, entity.y) }
+        .each   { |entity| raise_event :entity_created, Explosion.new(entity.x, entity.y) }
         .select { |entity| players.any? { |player| inside_radius? entity.x - player.x, 0, radius } }
-        .each   { raise_event(:game_ending, Time.now + 0.25) }
+        .each   { raise_event :game_ending, Time.now + 0.25 }
     end
 
     def render(win)
