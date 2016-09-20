@@ -8,8 +8,8 @@ module ScorchedEarth
     attr_reader :mouse_press_at, :players, :terrain, :window
 
     def initialize(terrain, players)
-      @terrain  = terrain
-      @players  = players
+      @terrain = terrain
+      @players = players
     end
 
     def register(scene)
@@ -29,6 +29,8 @@ module ScorchedEarth
     end
 
     def mouse_release
+      return unless mouse_press_at
+
       delta         = (Time.now - mouse_press_at) * 1000 + 1000
       width, height = *window.size
       x1, y1        = *mouse_pos

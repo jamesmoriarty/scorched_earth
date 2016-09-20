@@ -29,7 +29,7 @@ module ScorchedEarth
       @entities      = []
       @players       = 2.times.map { |index| Player.new rand(width), color_palette.get("player_#{index}") }
       @terrain       = Terrain.new width, height, rand(10), color_palette.get("terrain")
-      @mouse         = Mouse.new(terrain, players)
+      @mouse         = Mouse.new terrain, players
     end
 
     def update
