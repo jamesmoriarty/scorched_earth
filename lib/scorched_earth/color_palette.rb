@@ -1,5 +1,7 @@
 module ScorchedEarth
   class ColorPalette
+    include Enumerable
+
     attr_reader :cache, :colors, :strategy
 
     def initialize(*colors)
@@ -10,14 +12,14 @@ module ScorchedEarth
 
     def get(key)
       cache.fetch(key) do |key|
-        cache[key] = next_color
+        cache[key] = first
       end
     end
 
-    def next_color
+    def each(&block)
       loop do
         color = strategy.color(colors)
-        return color if not near_match?(color)
+        block.call color if not near_match?(color)
       end
     end
 
