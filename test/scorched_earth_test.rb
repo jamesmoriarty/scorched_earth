@@ -46,5 +46,5 @@ describe ScorchedEarth::Helpers do
   it("#offset_x")           { @subject.offset_x(45, 1).must_equal 0 }
   it("#offset_y")           { @subject.offset_y(45, 1).must_equal -1 }
   it("#inside_radius?")     { @subject.inside_radius?(1, 1, 5) }
-  it("#circle")             { result = []; @subject.circle(1) { |x, y| result << [x, y] }; result.must_equal [[-1, 0.0], [0, 1.0], [1, 0.0]] }
+  it("#circle")             { @subject.circle(1).to_a.must_equal [[-1, 0.0], [0, 1.0], [1, 0.0]] }
 end

@@ -17,6 +17,8 @@ module ScorchedEarth
     end
 
     def each(&block)
+      return enum_for(:each) unless block_given?
+
       loop do
         color = strategy.color(colors)
         block.call color if not near_match?(color)

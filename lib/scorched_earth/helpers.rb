@@ -25,6 +25,8 @@ module ScorchedEarth
     end
 
     def circle(radius)
+      return enum_for(:circle, radius) unless block_given?
+
       x = -radius
 
       loop do
