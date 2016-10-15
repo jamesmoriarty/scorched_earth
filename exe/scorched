@@ -1,14 +1,49 @@
 #!/usr/bin/env ruby
 
-require_relative "../lib/scorched_earth"
+include Java
 
-title   = "scorched earth v#{ScorchedEarth::VERSION}-#{`git rev-parse HEAD || echo 'r'`}"
-options = { fullscreen: false, size: [800, 600] }
+import java.awt.event.WindowAdapter
+import java.awt.event.WindowEvent
+import java.awt.image.BufferStrategy
+import javax.swing.JFrame
+import java.awt.Canvas
+import java.awt.Dimension
+import javax.swing.JPanel
+import java.awt.Color
 
-Ray::Game.new(title, options) do
-  register { add_hook :quit, method(:exit!) }
+class Game
+  attr_reader :strategy
 
-  scene :game, ScorchedEarth::GameScene
+  def initialize(width, height)
+    @container = JFrame.new "ScorchedEarth"
+    @canvas    = Canvas.new
+    @panel     = @container.get_content_pane
 
-  scenes << :game
-end.run
+    @panel.setPreferredSize Dimension.new(width, height)
+    @panel.setLayout nil
+    @panel.add @canvas
+
+    @container.pack
+    @container.setResizable false
+    @container.setVisible true
+
+    @canvas.setBounds 0, 0, width, height
+
+    @canvas.setIgnoreRepaint true
+    @canvas.createBufferStrategy 2
+    @strategy = @canvas.getBufferStrategy
+  end
+
+  def run
+    loop do
+      g = strategy.getDrawGraphics
+      g.setColor Color.black
+      g.fillRect 0, 0, @canvas.width, @canvas.height
+
+      g.dispose
+      strategy.show
+    end
+  end
+end
+
+Game.new(800, 600).run

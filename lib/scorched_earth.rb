@@ -1,6 +1,3 @@
-require "ray"
-require "color"
-
 $:.unshift File.dirname(__FILE__)
 
 require "scorched_earth/version"

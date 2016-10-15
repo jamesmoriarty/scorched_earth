@@ -7,7 +7,7 @@ require "scorched_earth/mouse"
 require "scorched_earth/color_palette"
 
 module ScorchedEarth
-  class GameScene < Ray::Scene
+  class GameScene
     include Helpers
 
     attr_reader :color_palette, :entities, :mouse, :players, :terrain, :scene_name
