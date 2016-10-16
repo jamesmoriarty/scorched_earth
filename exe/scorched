@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env jruby
 
 include Java
 
@@ -12,38 +12,69 @@ import javax.swing.JPanel
 import java.awt.Color
 
 class Game
-  attr_reader :strategy
+  def initialize width, height
 
-  def initialize(width, height)
-    @container = JFrame.new "ScorchedEarth"
+  end
+
+  def setup
+
+  end
+
+  def update delta
+
+  end
+
+  def render graphics
+
+  end
+end
+
+class GameWindow
+  attr_reader :buffer_strategy, :canvas
+
+  def initialize width, height
+    @container = JFrame.new
     @canvas    = Canvas.new
     @panel     = @container.get_content_pane
 
-    @panel.setPreferredSize Dimension.new(width, height)
-    @panel.setLayout nil
+    @panel.set_preferred_size Dimension.new(width, height)
+    @panel.set_layout nil
     @panel.add @canvas
 
     @container.pack
-    @container.setResizable false
-    @container.setVisible true
+    @container.set_resizable false
+    @container.set_visible true
 
-    @canvas.setBounds 0, 0, width, height
+    @canvas.set_bounds 0, 0, width, height
 
-    @canvas.setIgnoreRepaint true
-    @canvas.createBufferStrategy 2
-    @strategy = @canvas.getBufferStrategy
+    @canvas.set_ignore_repaint true
+    @canvas.create_buffer_strategy 2
+    @buffer_strategy = @canvas.get_buffer_strategy
   end
 
   def run
-    loop do
-      g = strategy.getDrawGraphics
-      g.setColor Color.black
-      g.fillRect 0, 0, @canvas.width, @canvas.height
+    last_time = Time.now
+    game      = Game.new canvas.width, canvas.height
 
-      g.dispose
-      strategy.show
+    game.setup
+
+    loop do
+      delta     = Time.now - last_time
+      last_time = Time.now
+      graphics  = buffer_strategy.get_draw_graphics
+
+      graphics.set_color Color.black
+      graphics.fill_rect 0, 0, canvas.width, canvas.height
+
+      game.update delta
+      game.render graphics
+
+      graphics.dispose
+      buffer_strategy.show
+
+      sleep 1.0/30
     end
   end
 end
 
-Game.new(800, 600).run
+GameWindow.new(800, 600).run
