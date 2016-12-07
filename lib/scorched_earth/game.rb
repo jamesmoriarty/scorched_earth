@@ -11,6 +11,7 @@ require 'scorched_earth/mouse'
 require 'scorched_earth/color_palette'
 require 'scorched_earth/event_runner'
 require 'scorched_earth/events/entity_created'
+require 'scorched_earth/events/entity_destroyed'
 require 'scorched_earth/events/game_ending'
 
 module ScorchedEarth
@@ -34,26 +35,16 @@ module ScorchedEarth
       @terrain       = Terrain.new width, height, rand(10), color_palette.get('terrain')
       @mouse         = Mouse.new event_runner, players, terrain
 
-      event_runner.subscribe Events::MousePressed,  &mouse.method(:mouse_pressed)
-      event_runner.subscribe Events::MouseReleased, &mouse.method(:mouse_released)
-      event_runner.subscribe Events::MouseMoved,    &mouse.method(:mouse_moved)
-      event_runner.subscribe(Events::EntityCreated) { |event| entities << event.entity }
-      event_runner.subscribe(Events::GameEnding)    { |event| event.time < Time.now ? setup : event_runner.publish(event) }
+      register_events
     end
 
     def update(delta)
-      event_runner.process_events!
+      event_runner.process!
 
-      radius = 50
-      @entities.each { |entity| entity.update delta }
-      @entities, @dead = *@entities.partition { |entity| terrain.fetch(entity.x, 0) < entity.y }
-      @dead
-        .select { |entity| entity.is_a? Shot }
-        .select { |entity| entity.x < terrain.width && entity.x > 0 }
-        .each   { |entity| terrain.bite entity.x, radius }
-        .each   { |entity| event_runner.publish Events::EntityCreated.new(Explosion.new(entity.x, entity.y)) }
-        .select { |entity| players.any? { |player| inside_radius? entity.x - player.x, 0, radius } }
-        .each   { event_runner.publish Events::GameEnding.new(Time.now + 1) }
+      @entities
+        .each   { |entity| entity.update delta }
+        .reject { |entity| terrain.fetch(entity.x, 0) < entity.y }
+        .each   { |entity| event_runner.publish Events::EntityDestroyed.new(entity) }
     end
 
     def render(graphics)
@@ -75,6 +66,27 @@ module ScorchedEarth
 
     def publish(event)
       event_runner.publish event
+    end
+
+    private
+
+    def register_events
+      event_runner.subscribe Events::MousePressed,    &mouse.method(:mouse_pressed)
+      event_runner.subscribe Events::MouseReleased,   &mouse.method(:mouse_released)
+      event_runner.subscribe Events::MouseMoved,      &mouse.method(:mouse_moved)
+      event_runner.subscribe(Events::GameEnding)      { |event| event.time < Time.now ? setup : event_runner.publish(event) }
+      event_runner.subscribe(Events::EntityCreated)   { |event| entities << event.entity }
+      event_runner.subscribe(Events::EntityDestroyed) { |event| entities.delete event.entity }
+      event_runner.subscribe(Events::EntityDestroyed) do |event|
+        radius = 50
+        [event.entity]
+          .select { |entity| entity.is_a? Shot }
+          .select { |entity| entity.x < terrain.width && entity.x > 0 }
+          .each   { |entity| terrain.bite entity.x, radius }
+          .each   { |entity| event_runner.publish Events::EntityCreated.new(Explosion.new(entity.x, entity.y)) }
+          .select { |entity| players.any? { |player| inside_radius? entity.x - player.x, 0, radius } }
+          .each   { event_runner.publish Events::GameEnding.new(Time.now + 1) }
+      end
     end
   end
 end
