@@ -19,6 +19,7 @@ module ScorchedEarth
       processing = queue.size.times.map { queue.pop }
 
       processing.each do |event|
+        puts event.inspect
         subscribers.each do |klass, block|
           block.call event if event.is_a? klass
         end

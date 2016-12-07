@@ -1,3 +1,7 @@
+include Java
+
+import java.awt.BasicStroke
+
 require 'scorched_earth/helpers'
 
 module ScorchedEarth
@@ -29,6 +33,7 @@ module ScorchedEarth
       y2      = y1 + offset_y(degrees, length)
 
       graphics.set_color color
+      graphics.setStroke BasicStroke.new 3
       graphics.draw_line x1, y1, x2, y2
     end
 

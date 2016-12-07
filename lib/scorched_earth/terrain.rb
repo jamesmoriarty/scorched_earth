@@ -27,21 +27,6 @@ module ScorchedEarth
       graphics.draw_image cache { _draw(graphics) }, 0, 0, nil
     end
 
-    def _draw(graphics)
-      image = graphics
-              .get_device_configuration
-              .create_compatible_image width, height, Transparency::TRANSLUCENT
-
-      each_with_index do |y, x|
-        image.graphics.tap do |image_graphics|
-          image_graphics.set_color color
-          image_graphics.draw_line x, height - y, x, height
-        end
-      end
-
-      image
-    end
-
     def bite(center_x, radius, center_y = self[center_x])
       circle(radius) do |offset_x, offset_y|
         x = center_x + offset_x
@@ -58,6 +43,21 @@ module ScorchedEarth
     end
 
     private
+
+    def _draw(graphics)
+      image = graphics
+              .get_device_configuration
+              .create_compatible_image width, height, Transparency::TRANSLUCENT
+
+      each_with_index do |y, x|
+        image.graphics.tap do |image_graphics|
+          image_graphics.set_color color
+          image_graphics.draw_line x, height - y, x, height
+        end
+      end
+
+      image
+    end
 
     def cache
       @cache ||= begin

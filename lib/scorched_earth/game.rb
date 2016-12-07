@@ -85,7 +85,7 @@ module ScorchedEarth
           .each   { |entity| terrain.bite entity.x, radius }
           .each   { |entity| event_runner.publish Events::EntityCreated.new(Explosion.new(entity.x, entity.y)) }
           .select { |entity| players.any? { |player| inside_radius? entity.x - player.x, 0, radius } }
-          .each   { event_runner.publish Events::GameEnding.new(Time.now + 1) }
+          .each   { event_runner.publish Events::GameEnding.new(Time.now + 0.25) }
       end
     end
   end
