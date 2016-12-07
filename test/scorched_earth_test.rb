@@ -1,26 +1,5 @@
 require 'test_helper'
 
-describe ScorchedEarth::GameScene do
-  before do
-    @game = Ray::Game.new "test"
-    @game.scene :game, ScorchedEarth::GameScene
-    @scene = @game.registered_scene :game
-    @scene.setup
-    @scene.register
-  end
-
-  it("#update") { @scene.update }
-
-  it("#players") { @scene.players.size.must_equal 2 }
-
-  it "changes player on click" do
-     original_player = @scene.mouse.current_player
-     @scene.mouse.mouse_press
-     @scene.mouse.mouse_release
-     assert @scene.mouse.current_player != original_player
-  end
-end
-
 describe ScorchedEarth::Terrain do
   before do
     @width   = 10

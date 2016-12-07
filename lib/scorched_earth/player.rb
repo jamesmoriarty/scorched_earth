@@ -8,7 +8,7 @@ module ScorchedEarth
 
     def draw(graphics, y)
       height = graphics.destination.height
-      radius = 15
+      radius = 20
 
       graphics.set_color color
       graphics.fill_oval x - radius / 2, height - y - radius / 2, radius, radius
