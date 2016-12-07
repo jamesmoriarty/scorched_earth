@@ -22,7 +22,9 @@ module ScorchedEarth
       @canvas    = Canvas.new
       @panel     = @container.get_content_pane
 
-      @panel.set_preferred_size Dimension.new(width, height)
+      @container.setDefaultCloseOperation JFrame::EXIT_ON_CLOSE
+
+      @panel.set_preferred_size Dimension.new width, height
       @panel.set_layout nil
       @panel.add @canvas
 
