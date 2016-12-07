@@ -1,3 +1,7 @@
+include Java
+
+import java.awt.Color
+
 require 'scorched_earth/helpers'
 require 'scorched_earth/terrain'
 require 'scorched_earth/player'
@@ -8,10 +12,6 @@ require 'scorched_earth/color_palette'
 require 'scorched_earth/event_runner'
 require 'scorched_earth/events/entity_created'
 require 'scorched_earth/events/game_ending'
-
-include Java
-
-import java.awt.Color
 
 module ScorchedEarth
   class Game
@@ -27,7 +27,7 @@ module ScorchedEarth
     end
 
     def setup
-      @color_palette = ColorPalette.new Color::RED, Color::YELLOW, Color::WHITE
+      @color_palette = ColorPalette.new Color.red, Color.yellow, Color.white
       @entities      = []
       @event_runner  = EventRunner.new
       @players       = Array.new(2) { |index| Player.new rand(width), color_palette.get("player_#{index}") }
