@@ -38,7 +38,7 @@ module ScorchedEarth
     end
 
     def inside_radius?(x, y, radius)
-      x ** 2 + y ** 2 < radius ** 2
+      x**2 + y**2 < radius**2
     end
 
     module_function :angle, :circle, :inside_radius?, :radians_to_degrees, :degrees_to_radians, :normalize_degrees, :offset_x, :offset_y

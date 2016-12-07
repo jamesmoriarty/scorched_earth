@@ -1,14 +1,5 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env jruby
 
-require_relative "../lib/scorched_earth"
+require_relative '../lib/scorched_earth'
 
-title   = "scorched earth v#{ScorchedEarth::VERSION}-#{`git rev-parse HEAD || echo 'r'`}"
-options = { fullscreen: false, size: [800, 600] }
-
-Ray::Game.new(title, options) do
-  register { add_hook :quit, method(:exit!) }
-
-  scene :game, ScorchedEarth::GameScene
-
-  scenes << :game
-end.run
+ScorchedEarth::GameWindow.new(800, 600).run
