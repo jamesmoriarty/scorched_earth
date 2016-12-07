@@ -1,5 +1,7 @@
 #!/usr/bin/env jruby
 
+require_relative "../lib/scorched_earth"
+
 include Java
 
 import java.awt.event.WindowAdapter
@@ -10,24 +12,6 @@ import java.awt.Canvas
 import java.awt.Dimension
 import javax.swing.JPanel
 import java.awt.Color
-
-class Game
-  def initialize width, height
-
-  end
-
-  def setup
-
-  end
-
-  def update delta
-
-  end
-
-  def render graphics
-
-  end
-end
 
 class GameWindow
   attr_reader :buffer_strategy, :canvas
@@ -54,7 +38,7 @@ class GameWindow
 
   def run
     last_time = Time.now
-    game      = Game.new canvas.width, canvas.height
+    game      = ScorchedEarth::Game.new canvas.width, canvas.height
 
     game.setup
 

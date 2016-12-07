@@ -3,39 +3,35 @@ require "scorched_earth/terrain"
 require "scorched_earth/player"
 require "scorched_earth/shot"
 require "scorched_earth/explosion"
-require "scorched_earth/mouse"
+# require "scorched_earth/mouse"
 require "scorched_earth/color_palette"
 
+include Java
+
+import java.awt.Color
+
 module ScorchedEarth
-  class GameScene
+  class Game
     include Helpers
 
-    attr_reader :color_palette, :entities, :mouse, :players, :terrain, :scene_name
+    attr_reader :width, :height,
+      :color_palette, :entities, :mouse, :players, :terrain
 
-    def register
-      mouse.register self
-
-      add_hook :key_press, key(:escape), method(:exit!)
-
-      on(:entity_created) { |entity| entities << entity }
-      on(:game_ending)    { |time| Time.now > time ? game_over : raise_event(:game_ending, time) }
-
-      always { update }
+    def initialize width, height
+      @width, @height = width, height
     end
 
     def setup
-      width, height  = *window.size
-      @color_palette = ColorPalette.new(Ray::Color.red, Ray::Color.yellow, Ray::Color.white)
+      @color_palette = ColorPalette.new Color::RED, Color::YELLOW, Color::WHITE
       @entities      = []
       @players       = 2.times.map { |index| Player.new rand(width), color_palette.get("player_#{index}") }
       @terrain       = Terrain.new width, height, rand(10), color_palette.get("terrain")
-      @mouse         = Mouse.new terrain, players
+      # @mouse         = Mouse.new terrain, players
     end
 
-    def update
-      width, height  = *window.size
-      radius         = 50
-      @entities.each { |entity| entity.update 1.0 / frames_per_second }
+    def update delta
+      radius           = 50
+      @entities.each { |entity| entity.update delta }
       @entities, @dead = *@entities.partition { |entity| terrain.fetch(entity.x, 0) < entity.y }
       @dead
         .select { |entity| entity.is_a? Shot }
@@ -46,24 +42,21 @@ module ScorchedEarth
         .each   { raise_event :game_ending, Time.now + 0.25 }
     end
 
-    def render(win)
-      win.clear color_palette.get("sky")
+    def render graphics
+      graphics.set_color color_palette.get("sky")
+      graphics.fill_rect 0, 0, width, height
 
       entities.each do |entity|
-        entity.draw win
+        entity.draw graphics
       end
 
       players.each do |player|
-        player.draw win, terrain[player.x]
+        player.draw graphics, terrain[player.x]
       end
 
-      mouse.draw win
+      # mouse.draw win
 
-      terrain.draw win
-    end
-
-    def game_over
-      pop_scene and push_scene scene_name
+      terrain.draw graphics
     end
   end
 end

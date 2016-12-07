@@ -1,13 +1,17 @@
 require "scorched_earth/helpers"
 
+include Java
+
+import java.awt.Transparency
+
 module ScorchedEarth
   class Terrain < Array
     include Helpers
 
-    attr_reader :color
+    attr_reader :color, :height
 
     def initialize(width, height, cycles, color)
-      @color = color
+      @color, @height = color, height
 
       super(width) do |index|
         Math.sin(index.to_f / width * cycles) * height / 4 + (height / 4)
@@ -18,10 +22,21 @@ module ScorchedEarth
       size
     end
 
-    def draw(win)
-      width, height = *win.size
+    def draw(graphics)
+      cached_image = cache do
+        image = graphics.get_device_configuration.create_compatible_image width, height, Transparency.TRANSLUCENT
 
-      win.draw image height
+        each_with_index do |y, x|
+          image.graphics.tap do |graphics|
+            graphics.set_color color
+            graphics.draw_line x, height - y, x, height
+          end
+        end
+
+        image
+      end
+
+      graphics.draw_image cached_image, 0, 0, nil
     end
 
     def bite(center_x, radius)
@@ -41,29 +56,11 @@ module ScorchedEarth
       clear_cache!
     end
 
-    def image(height)
-      cache do
-        image = Ray::Image.new [width, height]
-
-        Ray::ImageTarget.new(image) do |target|
-          target.clear Ray::Color.new(0, 0, 0, 0)
-
-          each_with_index do |y, x|
-            target.draw Ray::Polygon.line([x, height], [x, height - y], 1, color)
-          end
-
-          target.update
-        end
-
-        Ray::Sprite.new image, at: [0, 0]
-      end
-    end
-
     private
 
-    def cache(&block)
+    def cache
       @cache ||= begin
-        block.call
+        yield
       end
     end
 
