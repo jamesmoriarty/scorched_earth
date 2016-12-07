@@ -22,7 +22,7 @@ module ScorchedEarth
 
     def draw(graphics)
       height  = graphics.destination.height
-      degrees = angle(velocity_y, velocity_x)
+      degrees = angle velocity_y, velocity_x
       x1      = x
       y1      = height - y
       x2      = x1 + offset_x(degrees, length)

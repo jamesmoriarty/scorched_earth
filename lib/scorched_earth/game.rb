@@ -34,6 +34,9 @@ module ScorchedEarth
       @terrain       = Terrain.new width, height, rand(10), color_palette.get('terrain')
       @mouse         = Mouse.new event_runner, players, terrain
 
+      event_runner.subscribe Events::MousePressed,  &mouse.method(:mouse_pressed)
+      event_runner.subscribe Events::MouseReleased, &mouse.method(:mouse_released)
+      event_runner.subscribe Events::MouseMoved,    &mouse.method(:mouse_moved)
       event_runner.subscribe(Events::EntityCreated) { |event| entities << event.entity }
       event_runner.subscribe(Events::GameEnding)    { |event| event.time < Time.now ? setup : event_runner.publish(event) }
     end

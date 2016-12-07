@@ -13,10 +13,6 @@ module ScorchedEarth
       @event_runner = event_runner
       @players      = players
       @terrain      = terrain
-
-      event_runner.subscribe Events::MousePressed,  &method(:mouse_pressed)
-      event_runner.subscribe Events::MouseReleased, &method(:mouse_released)
-      event_runner.subscribe Events::MouseMoved,    &method(:mouse_moved)
     end
 
     def current_player

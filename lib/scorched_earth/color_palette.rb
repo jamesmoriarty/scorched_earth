@@ -15,8 +15,8 @@ module ScorchedEarth
     end
 
     def get(key)
-      cache.fetch(key) do |key|
-        cache[key] = first
+      cache[key] ||= begin
+        first
       end
     end
 
@@ -24,7 +24,7 @@ module ScorchedEarth
       return enum_for(:each) unless block_given?
 
       loop do
-        color = strategy.color(colors)
+        color = strategy.color colors
         yield color
       end
     end

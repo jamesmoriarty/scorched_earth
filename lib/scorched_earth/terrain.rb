@@ -11,7 +11,7 @@ module ScorchedEarth
     attr_reader :color, :height
 
     def initialize(width, height, cycles, color)
-      @color = color
+      @color  = color
       @height = height
 
       super(width) do |index|
