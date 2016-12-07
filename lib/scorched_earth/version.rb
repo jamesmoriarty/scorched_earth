@@ -1,3 +1,3 @@
 module ScorchedEarth
-  VERSION = '5.0.0.pre'.freeze
+  VERSION = '5.0.1.pre'.freeze
 end
