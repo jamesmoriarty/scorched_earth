@@ -2,6 +2,8 @@ include Java
 
 import java.awt.Color
 
+require 'scorched_earth/services/cie94'
+
 module ScorchedEarth
   class ColorPalette
     include Enumerable
@@ -25,7 +27,17 @@ module ScorchedEarth
 
       loop do
         color = strategy.color colors
-        yield color
+        unless already_exists?(color)
+          yield color
+        end
+      end
+    end
+
+    def already_exists?(color)
+      cache.values.any? do |color2|
+        delta_e94 = Services::CIE94.new.call color, color2
+
+        delta_e94 < 1000
       end
     end
 
