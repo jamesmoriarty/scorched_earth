@@ -1,3 +1,7 @@
+include Java
+
+import java.awt.BasicStroke
+
 require 'scorched_earth/helpers'
 require 'scorched_earth/events/mouse_pressed'
 require 'scorched_earth/events/mouse_released'
@@ -63,7 +67,8 @@ module ScorchedEarth
       x2     = current_player.x
       y2     = height - terrain[current_player.x]
 
-      graphics.set_color player.color
+      graphics.set_color current_player.color
+      graphics.setStroke BasicStroke.new 3
       graphics.draw_line x1, y1, x2, y2
     end
   end

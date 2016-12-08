@@ -15,6 +15,9 @@ require 'scorched_earth/events/mouse_moved'
 
 module ScorchedEarth
   class GameWindow
+    include java.awt.event.MouseMotionListener
+    include java.awt.event.MouseListener
+
     attr_reader :buffer_strategy, :canvas, :game
 
     def initialize(width, height)
@@ -26,6 +29,7 @@ module ScorchedEarth
 
       @panel.set_preferred_size Dimension.new width, height
       @panel.set_layout nil
+      @container.set_cursor nil
       @panel.add @canvas
 
       @container.pack
@@ -35,6 +39,7 @@ module ScorchedEarth
       @canvas.set_bounds 0, 0, width, height
 
       @canvas.add_mouse_listener self
+      @canvas.add_mouse_motion_listener self
 
       @canvas.set_ignore_repaint true
       @canvas.create_buffer_strategy 2
