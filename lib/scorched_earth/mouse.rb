@@ -38,7 +38,7 @@ module ScorchedEarth
       degrees    = angle(y2 - y1, x2 - x1) + 180
       velocity_x = offset_x(degrees, delta)
       velocity_y = offset_y(degrees, delta)
-      shot       = Shot.new current_player.x, terrain[current_player.x], velocity_x, velocity_y, Color.white
+      shot       = Shot.new current_player.x, terrain[current_player.x], velocity_x, velocity_y
 
       event_runner.publish Events::EntityCreated.new shot
 

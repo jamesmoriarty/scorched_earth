@@ -37,7 +37,7 @@ module ScorchedEarth
       cache.values.any? do |color2|
         delta_e94 = Services::CIE94.new.call color, color2
 
-        delta_e94 < 1000
+        delta_e94 < 750 # MAX: 10_0000 e.g. black vs. white
       end
     end
 
