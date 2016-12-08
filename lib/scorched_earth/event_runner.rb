@@ -16,7 +16,7 @@ module ScorchedEarth
     end
 
     def process!
-      processing = queue.size.times.map { queue.pop }
+      processing = Array.new(queue.size) { queue.pop }
 
       processing.each do |event|
         subscribers.each do |klass, block|

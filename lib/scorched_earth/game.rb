@@ -74,19 +74,32 @@ module ScorchedEarth
       event_runner.subscribe Events::MousePressed,    &mouse.method(:mouse_pressed)
       event_runner.subscribe Events::MouseReleased,   &mouse.method(:mouse_released)
       event_runner.subscribe Events::MouseMoved,      &mouse.method(:mouse_moved)
-      event_runner.subscribe(Events::GameEnding)      { |event| event.time < Time.now ? setup : event_runner.publish(event) }
-      event_runner.subscribe(Events::EntityCreated)   { |event| entities << event.entity }
-      event_runner.subscribe(Events::EntityDestroyed) { |event| entities.delete event.entity }
-      event_runner.subscribe(Events::EntityDestroyed) do |event|
-        radius = 50
-        [event.entity]
-          .select { |entity| entity.is_a? Shot }
-          .select { |entity| entity.x < terrain.width && entity.x > 0 }
-          .each   { |entity| terrain.bite entity.x, radius }
-          .each   { |entity| event_runner.publish Events::EntityCreated.new(Explosion.new(entity.x, entity.y)) }
-          .select { |entity| players.any? { |player| inside_radius? entity.x - player.x, 0, radius } }
-          .each   { event_runner.publish Events::GameEnding.new(Time.now + 0.25) }
-      end
+      event_runner.subscribe Events::GameEnding,      &method(:do_timeout)
+      event_runner.subscribe Events::EntityCreated,   &method(:do_entity_created)
+      event_runner.subscribe Events::EntityDestroyed, &method(:do_entity_destroyed)
+      event_runner.subscribe Events::EntityDestroyed, &method(:do_expolosion)
+    end
+
+    def do_entity_created(event)
+      entities << event.entity
+    end
+
+    def do_entity_destroyed(event)
+      entities.delete event.entity
+    end
+
+    def do_timeout(event)
+      event.time < Time.now ? setup : event_runner.publish(event)
+    end
+
+    def do_expolosion(event, radius = 50)
+      [event.entity]
+        .select { |entity| entity.is_a? Shot }
+        .select { |entity| entity.x < terrain.width && entity.x > 0 }
+        .each   { |entity| terrain.bite entity.x, radius }
+        .each   { |entity| event_runner.publish Events::EntityCreated.new(Explosion.new(entity.x, entity.y)) }
+        .select { |entity| players.any? { |player| inside_radius? entity.x - player.x, 0, radius } }
+        .each   { event_runner.publish Events::GameEnding.new(Time.now + 0.25) }
     end
   end
 end

@@ -27,9 +27,7 @@ module ScorchedEarth
 
       loop do
         color = strategy.color colors
-        unless already_exists?(color)
-          yield color
-        end
+        yield color unless already_exists?(color)
       end
     end
 
