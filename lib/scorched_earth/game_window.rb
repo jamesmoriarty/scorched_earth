@@ -58,9 +58,6 @@ module ScorchedEarth
         last_time = Time.now
         graphics  = buffer_strategy.get_draw_graphics
 
-        graphics.set_color Color.black
-        graphics.fill_rect 0, 0, canvas.width, canvas.height
-
         game.update delta
         game.render graphics
 

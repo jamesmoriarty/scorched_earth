@@ -1,5 +1,5 @@
 module ScorchedEarth
   module Events
-    EntityCreated = Struct.new(:entity)
+    GameUpdate = Struct.new(:delta)
   end
 end

@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env jruby
 
 require 'bundler/setup'
 require 'scorched_earth'

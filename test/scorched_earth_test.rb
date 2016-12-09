@@ -8,26 +8,13 @@ describe ScorchedEarth::Game do
   end
 
   it 'changes player when mouse is released' do
-    original_player = @game.mouse.current_player
+    original_player = @game.current_player
     @game.publish ScorchedEarth::Events::MousePressed.new(0, 0)
     @game.publish ScorchedEarth::Events::MouseReleased.new(0, 0)
     @game.update(1)
-    assert @game.mouse.current_player != original_player
-  end
-end
 
-describe ScorchedEarth::Terrain do
-  before do
-    @width   = 10
-    @height  = 10
-    @cycles  = 0
-    @color   = nil
-    @subject = ScorchedEarth::Terrain.new(@width, @height, @cycles, @color)
+    assert @game.current_player != original_player
   end
-
-  it('#[]')    { @subject[5].must_equal 2 }
-  it('#width') { @subject.width.must_equal 10 }
-  it('#bite')  { @subject.bite(5, 1); @subject[5].must_equal 1 }
 end
 
 describe ScorchedEarth::Helpers do

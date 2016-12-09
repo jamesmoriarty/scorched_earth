@@ -1,5 +1,5 @@
 module ScorchedEarth
   module Events
-    GameEnding = Struct.new(:time)
+    GameOver = Struct.new(:time)
   end
 end
