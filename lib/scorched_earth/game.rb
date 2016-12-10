@@ -26,22 +26,11 @@ module ScorchedEarth
   class Game
     include Helpers
 
+    Subscribers.constants.each { |name| prepend Subscribers.const_get name }
+
     attr_reader :width, :height, :cache,
                 :color_palette, :objects, :players, :terrain, :mouse,
                 :event_runner
-
-    [
-      Subscribers::MousePressed,
-      Subscribers::MouseReleased,
-      Subscribers::MouseMoved,
-      Subscribers::Timeout,
-      Subscribers::Collisions,
-      Subscribers::Deform,
-      Subscribers::Effect,
-      Subscribers::Radius
-    ].each do |subscriber|
-      prepend subscriber
-    end
 
     def initialize(width, height)
       @width  = width
