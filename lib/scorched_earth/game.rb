@@ -87,8 +87,8 @@ module ScorchedEarth
       players.first
     end
 
-    def next_player
-      players.rotate!
+    def next_player!
+      @players = players.rotate!
     end
 
     def new_player(index, x = rand(width))
