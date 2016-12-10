@@ -15,7 +15,7 @@ module ScorchedEarth
         end
 
         def call(graphics)
-          image  = cache(key) { to_image(graphics) }
+          image = cache(key) { to_image(graphics) }
 
           graphics.draw_image image, 0, 0, nil
         end
@@ -26,8 +26,8 @@ module ScorchedEarth
           height = graphics.destination.height
 
           image = graphics
-            .get_device_configuration
-            .create_compatible_image width, height, Transparency::TRANSLUCENT
+                  .get_device_configuration
+                  .create_compatible_image width, height, Transparency::TRANSLUCENT
 
           terrain.each_with_index do |y, x|
             image.graphics.tap do |image_graphics|
@@ -47,7 +47,7 @@ module ScorchedEarth
           terrain.size
         end
 
-        def cache(key, &set)
+        def cache(key)
           _cache[key] ||= begin
             yield
           end

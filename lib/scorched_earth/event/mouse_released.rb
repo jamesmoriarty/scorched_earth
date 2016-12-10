@@ -1,5 +1,5 @@
 module ScorchedEarth
-  module Events
+  module Event
     MouseReleased = Struct.new(:x, :y)
   end
 end
