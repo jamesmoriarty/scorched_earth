@@ -8,18 +8,18 @@ require 'scorched_earth/objects/explosion'
 require 'scorched_earth/objects/mouse'
 require 'scorched_earth/event_runner'
 require 'scorched_earth/event/game_update'
-require 'scorched_earth/event/subscribers/game_over/timeout'
-require 'scorched_earth/event/subscribers/game_update/collisions'
-require 'scorched_earth/event/subscribers/hit/deform'
-require 'scorched_earth/event/subscribers/hit/effect'
-require 'scorched_earth/event/subscribers/hit/radius'
-require 'scorched_earth/event/subscribers/mouse_moved'
-require 'scorched_earth/event/subscribers/mouse_pressed'
-require 'scorched_earth/event/subscribers/mouse_released'
+require 'scorched_earth/subscribers/game_over/timeout'
+require 'scorched_earth/subscribers/game_update/collisions'
+require 'scorched_earth/subscribers/hit/deform'
+require 'scorched_earth/subscribers/hit/effect'
+require 'scorched_earth/subscribers/hit/radius'
+require 'scorched_earth/subscribers/mouse_moved'
+require 'scorched_earth/subscribers/mouse_pressed'
+require 'scorched_earth/subscribers/mouse_released'
 require 'scorched_earth/helpers'
 require 'scorched_earth/services/color_palette'
 require 'scorched_earth/services/deform'
-require 'scorched_earth/services/renders'
+require 'scorched_earth/renders'
 require 'scorched_earth/services/wave'
 
 module ScorchedEarth
@@ -31,22 +31,22 @@ module ScorchedEarth
                 :event_runner
 
     [
-      Event::Subscribers::MousePressed,
-      Event::Subscribers::MouseReleased,
-      Event::Subscribers::MouseMoved,
-      Event::Subscribers::Timeout,
-      Event::Subscribers::Collisions,
-      Event::Subscribers::Deform,
-      Event::Subscribers::Effect,
-      Event::Subscribers::Radius
+      Subscribers::MousePressed,
+      Subscribers::MouseReleased,
+      Subscribers::MouseMoved,
+      Subscribers::Timeout,
+      Subscribers::Collisions,
+      Subscribers::Deform,
+      Subscribers::Effect,
+      Subscribers::Radius
     ].each do |subscriber|
       prepend subscriber
     end
 
     def initialize(width, height)
-      @width         = width
-      @height        = height
-      @mouse         = Mouse.new
+      @width  = width
+      @height = height
+      @mouse  = Mouse.new
     end
 
     def setup
@@ -71,12 +71,12 @@ module ScorchedEarth
       graphics.set_color color_palette.get('sky')
       graphics.fill_rect 0, 0, width, height
 
-      Services::Renders::Mouse.new(mouse, current_player).call(graphics)
+      Renders::Mouse.new(mouse, current_player).call(graphics)
 
-      objects.each { |entity| Services::Renders.find(entity).call(graphics) }
-      players.each { |player| Services::Renders.find(player).call(graphics) }
+      objects.each { |entity| Renders.find(entity).call(graphics) }
+      players.each { |player| Renders.find(player).call(graphics) }
 
-      Services::Renders::Array.new(terrain, color_palette.get('terrain'), cache).call(graphics)
+      Renders::Array.new(terrain, color_palette.get('terrain'), cache).call(graphics)
     end
 
     def publish(event)
