@@ -1,6 +1,6 @@
 module ScorchedEarth
   module Subscribers
-    module MouseReleased
+    module Fire
       def setup
         super
 
@@ -13,7 +13,6 @@ module ScorchedEarth
             shot       = Shot.new current_player.x, terrain[current_player.x], velocity_x, velocity_y
 
             objects << shot
-            next_player!
           end
         end
       end
