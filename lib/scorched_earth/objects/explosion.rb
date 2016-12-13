@@ -11,7 +11,7 @@ module ScorchedEarth
     end
 
     def update(_delta)
-      self.class.new(x, y, radius + 25) if radius < 100
+      self.class.new(x, y, radius + 25) if radius < 125
     end
   end
 end
