@@ -61,12 +61,12 @@ module ScorchedEarth
       graphics.set_color color_palette.get('sky')
       graphics.fill_rect 0, 0, width, height
 
-      Renders::Mouse.new(mouse, current_player).call(graphics)
+      Renders::Mouse.new(mouse, current_player).call(graphics, color_palette)
 
-      objects.each { |entity| Renders.find(entity).call(graphics) }
-      players.each { |player| Renders.find(player).call(graphics) }
+      objects.each { |entity| Renders.find(entity).call(graphics, color_palette) }
+      players.each { |player| Renders.find(player).call(graphics, color_palette) }
 
-      Renders::Array.new(terrain, color_palette.get('terrain'), cache).call(graphics)
+      Renders::Array.new(terrain, cache).call(graphics, color_palette)
     end
 
     def publish(event)
@@ -82,7 +82,7 @@ module ScorchedEarth
     end
 
     def new_player(index, x = rand(width))
-      Player.new x, terrain[x], color_palette.get("player_#{index}")
+      Player.new x, terrain[x]
     end
   end
 end

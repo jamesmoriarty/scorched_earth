@@ -5,24 +5,24 @@ import java.awt.Transparency
 module ScorchedEarth
   module Renders
     class Array
-      attr_reader :terrain, :color, :_cache
+      attr_reader :terrain, :_cache
 
-      def initialize(terrain, color, _cache = {})
+      def initialize(terrain, _cache = {})
         @terrain = terrain
-        @color   = color
         @_cache  = _cache
       end
 
-      def call(graphics)
-        image = cache(key) { to_image(graphics) }
+      def call(graphics, color_palette)
+        image = cache(key) { to_image(graphics, color_palette) }
 
         graphics.draw_image image, 0, 0, nil
       end
 
       private
 
-      def to_image(graphics)
+      def to_image(graphics, color_palette)
         height = graphics.destination.height
+        color  = color_palette.get(terrain.class.name)
 
         image = graphics
                 .get_device_configuration

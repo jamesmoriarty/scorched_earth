@@ -1,11 +1,10 @@
 module ScorchedEarth
   class Player
-    attr_reader :x, :y, :color
+    attr_reader :x, :y
 
-    def initialize(x, y, color)
+    def initialize(x, y)
       @x     = x
       @y     = y
-      @color = color
 
       freeze
     end

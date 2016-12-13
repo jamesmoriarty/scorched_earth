@@ -15,7 +15,7 @@ module ScorchedEarth
         @shot = shot
       end
 
-      def call(graphics)
+      def call(graphics, *args)
         height = graphics.destination.height
         y1     = height - shot.y
         y2     = y1 + offset_y(degrees, length)

@@ -7,7 +7,8 @@ module ScorchedEarth
         @player = player
       end
 
-      def call(graphics)
+      def call(graphics, color_palette)
+        color  = color_palette.get(player.x)
         height = graphics.destination.height
         y      = height - player.y - radius / 2
 
@@ -16,10 +17,6 @@ module ScorchedEarth
       end
 
       private
-
-      def color
-        player.color
-      end
 
       def x
         player.x - radius / 2
