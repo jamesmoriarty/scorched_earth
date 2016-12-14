@@ -22,9 +22,10 @@ module ScorchedEarth
           @@cache ||= {}
 
           if value = @@cache[key]
-            return value
+            value
           else
             @@cache = {}
+
             @@cache[key] ||= begin
               yield
             end
@@ -62,10 +63,6 @@ module ScorchedEarth
         end
 
         image
-      end
-
-      def key
-        array.reduce(&:+)
       end
 
       def width
