@@ -1,4 +1,4 @@
-require 'scorched_earth/event/hit'
+require 'scorched_earth/events/hit'
 
 module ScorchedEarth
   module Subscribers
@@ -6,9 +6,9 @@ module ScorchedEarth
       def setup
         super
 
-        event_runner.subscribe(Event::Hit) do |event|
+        event_runner.subscribe(Events::Hit) do |event|
           if players.any? { |player| inside_radius? event.entity.x - player.x, 0, event.radius }
-            event_runner.publish Event::GameOver.new(Time.now + 0.25)
+            event_runner.publish Events::GameOver.new(Time.now + 0.25)
           end
         end
       end

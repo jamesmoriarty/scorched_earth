@@ -9,9 +9,9 @@ import javax.swing.JPanel
 import java.awt.Color
 
 require 'scorched_earth/game'
-require 'scorched_earth/event/mouse_pressed'
-require 'scorched_earth/event/mouse_released'
-require 'scorched_earth/event/mouse_moved'
+require 'scorched_earth/events/mouse_pressed'
+require 'scorched_earth/events/mouse_released'
+require 'scorched_earth/events/mouse_moved'
 
 module ScorchedEarth
   class GameWindow
@@ -74,7 +74,7 @@ module ScorchedEarth
       x = event.point.x
       y = event.point.y
 
-      game.publish Event::MouseMoved.new x, y
+      game.publish Events::MouseMoved.new x, y
     end
 
     def mouse_dragged(*args); end
@@ -83,14 +83,14 @@ module ScorchedEarth
       x = event.point.x
       y = event.point.y
 
-      game.publish Event::MousePressed.new x, y
+      game.publish Events::MousePressed.new x, y
     end
 
     def mouse_released(event)
       x = event.point.x
       y = event.point.y
 
-      game.publish Event::MouseReleased.new x, y
+      game.publish Events::MouseReleased.new x, y
     end
 
     def mouse_clicked(*args); end

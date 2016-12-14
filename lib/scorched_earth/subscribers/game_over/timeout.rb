@@ -1,4 +1,4 @@
-require 'scorched_earth/event/game_over'
+require 'scorched_earth/events/game_over'
 
 module ScorchedEarth
   module Subscribers
@@ -6,7 +6,7 @@ module ScorchedEarth
       def setup
         super
 
-        event_runner.subscribe(Event::GameOver) do |event|
+        event_runner.subscribe(Events::GameOver) do |event|
           event.time < Time.now ? setup : event_runner.publish(event)
         end
       end

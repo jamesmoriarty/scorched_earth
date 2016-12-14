@@ -7,7 +7,7 @@ require 'scorched_earth/objects/shot'
 require 'scorched_earth/objects/explosion'
 require 'scorched_earth/objects/mouse'
 require 'scorched_earth/event_runner'
-require 'scorched_earth/event/game_update'
+require 'scorched_earth/events/game_update'
 require 'scorched_earth/subscribers/game_over/timeout'
 require 'scorched_earth/subscribers/game_update/collisions'
 require 'scorched_earth/subscribers/hit/deform'
@@ -20,8 +20,8 @@ require 'scorched_earth/subscribers/mouse_released/next_player'
 require 'scorched_earth/helpers'
 require 'scorched_earth/services/color_palette'
 require 'scorched_earth/services/deform'
-require 'scorched_earth/renders'
 require 'scorched_earth/services/wave'
+require 'scorched_earth/renders'
 
 module ScorchedEarth
   class Game
@@ -52,7 +52,7 @@ module ScorchedEarth
                  .flat_map { |entity| entity.update delta }
                  .compact
 
-      event_runner.publish Event::GameUpdate.new delta
+      event_runner.publish Events::GameUpdate.new delta
       event_runner.process!
     end
 

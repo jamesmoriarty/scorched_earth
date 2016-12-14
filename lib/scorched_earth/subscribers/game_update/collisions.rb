@@ -4,11 +4,11 @@ module ScorchedEarth
       def setup
         super
 
-        event_runner.subscribe(Event::GameUpdate) do
+        event_runner.subscribe(Events::GameUpdate) do
           objects
             .select   { |entity| entity.is_a? Shot }
             .select   { |entity| array.fetch(entity.x, 0) > entity.y }
-            .each     { |entity| event_runner.publish Event::Hit.new(entity, radius = 50) }
+            .each     { |entity| event_runner.publish Events::Hit.new(entity, radius = 50) }
             .each     { |entity| objects.delete entity }
         end
       end

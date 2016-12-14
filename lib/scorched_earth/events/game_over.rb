@@ -1,5 +1,5 @@
 module ScorchedEarth
-  module Event
+  module Events
     GameOver = Struct.new(:time)
   end
 end

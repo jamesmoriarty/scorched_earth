@@ -1,4 +1,4 @@
-require 'scorched_earth/event/hit'
+require 'scorched_earth/events/hit'
 
 module ScorchedEarth
   module Subscribers
@@ -6,7 +6,7 @@ module ScorchedEarth
       def setup
         super
 
-        event_runner.subscribe(Event::Hit) do |event|
+        event_runner.subscribe(Events::Hit) do |event|
           objects << Explosion.new(event.entity.x, event.entity.y)
         end
       end

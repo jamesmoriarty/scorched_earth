@@ -1,5 +1,5 @@
 module ScorchedEarth
-  module Event
+  module Events
     GameUpdate = Struct.new(:delta)
   end
 end
