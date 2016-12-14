@@ -6,7 +6,7 @@ module ScorchedEarth
 
         event_runner.subscribe(Event::MouseReleased) do |event|
           if mouse.pressed_at && mouse.x && mouse.y
-            shot = Shot.new current_player.x, terrain[current_player.x], velocity_x, velocity_y
+            shot = Shot.new current_player.x, array[current_player.x], velocity_x, velocity_y
 
             objects << shot
           end

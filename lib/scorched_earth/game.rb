@@ -29,9 +29,9 @@ module ScorchedEarth
 
     Subscribers.constants.each { |name| prepend Subscribers.const_get name }
 
-    attr_reader :width, :height, :cache,
-                :color_palette, :objects, :players, :terrain, :mouse,
-                :event_runner
+    attr_reader :width, :height, :mouse,
+                :event_runner, :color_palette, :objects, :players, :array
+
 
     def initialize(width, height)
       @width  = width
@@ -40,11 +40,10 @@ module ScorchedEarth
     end
 
     def setup
-      @cache         = {}
       @color_palette = Services::ColorPalette.new Color::RED, Color::YELLOW, Color::WHITE
       @event_runner  = EventRunner.new
       @objects       = []
-      @terrain       = Services::Wave.new(width, height, phases = rand(10)).each.to_a # Array.new(width) { height / 4 }
+      @array         = Services::Wave.new(width, height, phases = rand(10)).each.to_a # Array.new(width) { height / 4 }
       @players       = Array.new 2, &method(:new_player)
     end
 
@@ -66,7 +65,7 @@ module ScorchedEarth
       objects.each { |entity| Renders.find(entity).call(graphics, color_palette) }
       players.each { |player| Renders.find(player).call(graphics, color_palette) }
 
-      Renders::Array.new(terrain, cache).call(graphics, color_palette)
+      Renders::Array.new(array).call(graphics, color_palette)
     end
 
     def publish(event)
@@ -82,7 +81,7 @@ module ScorchedEarth
     end
 
     def new_player(index, x = rand(width))
-      Player.new x, terrain[x]
+      Player.new x, array[x]
     end
   end
 end
