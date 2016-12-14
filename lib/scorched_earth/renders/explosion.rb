@@ -18,7 +18,7 @@ module ScorchedEarth
       private
 
       def color
-        Color.white
+        Color::WHITE
       end
 
       def radius
