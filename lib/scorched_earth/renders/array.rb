@@ -19,7 +19,7 @@ module ScorchedEarth
         end
 
         def cache(key)
-          @@cache      ||= {}
+          @@cache ||= {}
 
           if value = @@cache[key]
             return value
@@ -37,7 +37,7 @@ module ScorchedEarth
       attr_reader :array
 
       def initialize(array)
-        @array  = array
+        @array = array
       end
 
       def call(graphics, color_palette)

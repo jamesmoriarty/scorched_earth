@@ -32,7 +32,6 @@ module ScorchedEarth
     attr_reader :width, :height, :mouse,
                 :event_runner, :color_palette, :objects, :players, :array
 
-
     def initialize(width, height)
       @width  = width
       @height = height
@@ -80,7 +79,7 @@ module ScorchedEarth
       @players = players.rotate!
     end
 
-    def new_player(index, x = rand(width))
+    def new_player(_index, x = rand(width))
       Player.new x, array[x]
     end
   end

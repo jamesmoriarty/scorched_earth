@@ -7,7 +7,7 @@ module ScorchedEarth
         @explosion = explosion
       end
 
-      def call(graphics, *args)
+      def call(graphics, *_args)
         height = graphics.destination.height
         y      = height - explosion.y - radius / 2
 
