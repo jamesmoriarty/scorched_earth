@@ -9,8 +9,6 @@ describe ScorchedEarth::Game do
 
   it 'changes player when mouse is released' do
     original_player = @game.current_player
-    @game.publish ScorchedEarth::Events::MouseMoved.new(0, 0)
-    @game.publish ScorchedEarth::Events::MousePressed.new(0, 0)
     @game.publish ScorchedEarth::Events::MouseReleased.new(0, 0)
     @game.update(1)
 
