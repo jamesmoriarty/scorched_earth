@@ -2,4 +2,6 @@
 
 require_relative '../lib/scorched_earth'
 
-ScorchedEarth::GameWindow.new(800, 600).run
+game = ScorchedEarth::Game.new 800, 600
+
+ScorchedEarth::GameWindow.new(game.width, game.height, game).run

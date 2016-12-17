@@ -8,7 +8,6 @@ import java.awt.Dimension
 import javax.swing.JPanel
 import java.awt.Color
 
-require 'scorched_earth/game'
 require 'scorched_earth/events/mouse_pressed'
 require 'scorched_earth/events/mouse_released'
 require 'scorched_earth/events/mouse_moved'
@@ -20,7 +19,8 @@ module ScorchedEarth
 
     attr_reader :buffer_strategy, :canvas, :game
 
-    def initialize(width, height)
+    def initialize(width, height, game)
+      @game      = game
       @container = JFrame.new
       @canvas    = Canvas.new
       @panel     = @container.get_content_pane
@@ -44,8 +44,6 @@ module ScorchedEarth
       @canvas.set_ignore_repaint true
       @canvas.create_buffer_strategy 2
       @buffer_strategy = @canvas.get_buffer_strategy
-
-      @game = ScorchedEarth::Game.new canvas.width, canvas.height
     end
 
     def run
