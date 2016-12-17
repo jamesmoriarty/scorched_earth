@@ -1,6 +1,7 @@
 include Java
 
 import java.awt.Transparency
+import java.awt.Image
 
 module ScorchedEarth
   module Renders
@@ -54,6 +55,8 @@ module ScorchedEarth
         image = graphics
                 .get_device_configuration
                 .create_compatible_image width, height, Transparency::TRANSLUCENT
+
+        image.set_acceleration_priority 1
 
         array.each_with_index do |y, x|
           image.graphics.tap do |image_graphics|
