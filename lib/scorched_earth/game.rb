@@ -48,7 +48,7 @@ module ScorchedEarth
 
     def update(delta)
       @objects = objects
-                 .map { |entity| entity.update delta}
+                 .map { |entity| entity.update delta }
                  .compact
 
       event_runner.publish Events::GameUpdate.new delta

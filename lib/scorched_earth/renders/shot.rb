@@ -9,7 +9,6 @@ require 'scorched_earth/renders/trajectory'
 module ScorchedEarth
   module Renders
     class Shot
-
       attr_reader :shot
 
       def initialize(shot)
