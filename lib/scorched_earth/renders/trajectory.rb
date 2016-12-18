@@ -20,16 +20,11 @@ module ScorchedEarth
 
         path.move_to first[0], height - first[1]
 
-
         remaining.each do |x, y|
-          begin
-            path.line_to x, height - y
-          rescue Exception => e
-            require "pry"; binding.pry
-          end
+          path.line_to x, height - y
         end
 
-        graphics.setStroke BasicStroke.new 3.0, BasicStroke::CAP_ROUND, BasicStroke::JOIN_ROUND, 10.0, [10.0].to_java(:float), 0.0
+        graphics.set_stroke BasicStroke.new 3.0, BasicStroke::CAP_ROUND, BasicStroke::JOIN_ROUND, 10.0, [10.0].to_java(:float), 0.0
         graphics.set_color Color::WHITE
 
         graphics.draw path

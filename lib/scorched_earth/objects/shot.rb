@@ -7,10 +7,10 @@ module ScorchedEarth
         freeze
       end
 
-      def update(*args)
+      def update(*_args)
         self
       end
-     end
+    end
 
     attr_reader :x, :y, :velocity_x, :velocity_y, :trajectory
 
