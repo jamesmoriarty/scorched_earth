@@ -2,7 +2,7 @@ require 'scorched_earth/renders/explosion'
 require 'scorched_earth/renders/mouse'
 require 'scorched_earth/renders/player'
 require 'scorched_earth/renders/shot'
-require 'scorched_earth/renders/array'
+require 'scorched_earth/renders/map'
 
 module ScorchedEarth
   module Renders

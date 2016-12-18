@@ -48,7 +48,7 @@ module ScorchedEarth
 
     def update(delta)
       @objects = objects
-                 .flat_map { |entity| entity.update delta }
+                 .map { |entity| entity.update delta}
                  .compact
 
       event_runner.publish Events::GameUpdate.new delta
@@ -64,7 +64,7 @@ module ScorchedEarth
       objects.each { |entity| Renders.find(entity).call(graphics, color_palette) }
       players.each { |player| Renders.find(player).call(graphics, color_palette) }
 
-      Renders::Array.new(array).call(graphics, color_palette)
+      Renders::Map.new(array).call(graphics, color_palette)
     end
 
     def publish(event)

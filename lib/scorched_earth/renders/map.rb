@@ -5,7 +5,7 @@ import java.awt.Image
 
 module ScorchedEarth
   module Renders
-    class Array
+    class Map
       module Cache
         def to_image(graphics, color_palette)
           cache(key) do
