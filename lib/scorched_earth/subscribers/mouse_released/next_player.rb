@@ -5,7 +5,7 @@ module ScorchedEarth
         super
 
         event_runner.subscribe(Events::MouseReleased) do |_event|
-          next_player!
+          @players = players.rotate!
         end
       end
     end

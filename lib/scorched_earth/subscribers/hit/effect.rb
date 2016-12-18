@@ -7,7 +7,7 @@ module ScorchedEarth
         super
 
         event_runner.subscribe(Events::Hit) do |event|
-          objects << Explosion.new(event.entity.x, event.entity.y)
+          objects << Explosion.new(event.object.x, event.object.y)
         end
       end
     end

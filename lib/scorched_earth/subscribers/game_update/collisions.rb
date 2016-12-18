@@ -6,11 +6,11 @@ module ScorchedEarth
 
         event_runner.subscribe(Events::GameUpdate) do
           objects
-            .select   { |entity| entity.is_a? Shot }
-            .select   { |entity| array.fetch(entity.x, 0) > entity.y }
-            .each     { |entity| event_runner.publish Events::Hit.new(entity, radius = 50) }
-            .each     { |entity| objects << entity.trajectory }
-            .each     { |entity| objects.delete entity }
+            .select   { |object| object.is_a? Shot }
+            .select   { |object| array.fetch(object.x, 0) > object.y }
+            .each     { |object| event_runner.publish Events::Hit.new(object, radius = 50) }
+            .each     { |object| objects << object.trajectory }
+            .each     { |object| objects.delete object }
         end
       end
     end
