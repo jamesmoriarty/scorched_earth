@@ -1,5 +1,5 @@
 module ScorchedEarth
   module Events
-    Hit = Struct.new(:entity, :radius)
+    Hit = Struct.new(:object, :radius)
   end
 end

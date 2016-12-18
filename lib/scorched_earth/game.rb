@@ -43,12 +43,12 @@ module ScorchedEarth
       @event_runner  = EventRunner.new
       @objects       = []
       @array         = Services::Wave.new(width, height, phases = rand(10)).each.to_a # Array.new(width) { height / 4 }
-      @players       = Array.new 2, &method(:new_player)
+      @players       = Array.new(2) { x = rand(width); Player.new(x, array[x]) }
     end
 
     def update(delta)
       @objects = objects
-                 .map { |entity| entity.update delta }
+                 .map { |object| object.update delta }
                  .compact
 
       event_runner.publish Events::GameUpdate.new delta
@@ -61,7 +61,7 @@ module ScorchedEarth
 
       Renders::Mouse.new(mouse, current_player).call(graphics, color_palette)
 
-      objects.each { |entity| Renders.find(entity).call(graphics, color_palette) }
+      objects.each { |object| Renders.find(object).call(graphics, color_palette) }
       players.each { |player| Renders.find(player).call(graphics, color_palette) }
 
       Renders::Map.new(array).call(graphics, color_palette)
@@ -73,14 +73,6 @@ module ScorchedEarth
 
     def current_player
       players.first
-    end
-
-    def next_player!
-      @players = players.rotate!
-    end
-
-    def new_player(_index, x = rand(width))
-      Player.new x, array[x]
     end
   end
 end
