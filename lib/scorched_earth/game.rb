@@ -10,6 +10,7 @@ require 'scorched_earth/event_runner'
 require 'scorched_earth/events/game_update'
 require 'scorched_earth/subscribers/game_over/timeout'
 require 'scorched_earth/subscribers/game_update/collisions'
+require 'scorched_earth/subscribers/game_update/delta'
 require 'scorched_earth/subscribers/hit/deform'
 require 'scorched_earth/subscribers/hit/effect'
 require 'scorched_earth/subscribers/hit/radius'
@@ -47,10 +48,6 @@ module ScorchedEarth
     end
 
     def update(delta)
-      @objects = objects
-                 .map { |object| object.update delta }
-                 .compact
-
       event_runner.publish Events::GameUpdate.new delta
       event_runner.process!
     end
