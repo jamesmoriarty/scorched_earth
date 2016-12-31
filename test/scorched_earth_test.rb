@@ -3,12 +3,11 @@ require 'test_helper'
 describe ScorchedEarth::Services::CIE94 do
   Color = Java::JavaAwt::Color # HACK
 
-  it "can tell colors are the same"   do
+  it 'can tell colors are the same' do
     assert_equal ScorchedEarth::Services::CIE94.new.call(Color.black, Color.black), 0
   end
 
-
-  it "can tell colors are different" do
+  it 'can tell colors are different' do
     assert_equal ScorchedEarth::Services::CIE94.new.call(Color.black, Color.white), 9341.57053391457
   end
 end
@@ -16,7 +15,14 @@ end
 describe ScorchedEarth::Game do
   before do
     @game = ScorchedEarth::Game.new(800, 600)
+
     @game.setup
+  end
+
+  it 'renders' do
+    @game.publish ScorchedEarth::Events::MouseMoved.new(0, 0)
+
+    @game.render graphics = NullObject.new
   end
 
   it 'fires when clicked' do

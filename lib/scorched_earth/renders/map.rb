@@ -54,7 +54,7 @@ module ScorchedEarth
 
         image = graphics
                 .get_device_configuration
-                .create_compatible_image width, height, Transparency::TRANSLUCENT
+                .create_compatible_image width, height, java.awt.Transparency::TRANSLUCENT
 
         image.set_acceleration_priority 1
 
