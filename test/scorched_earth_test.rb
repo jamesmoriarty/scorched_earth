@@ -4,11 +4,17 @@ describe ScorchedEarth::Services::CIE94 do
   Color = Java::JavaAwt::Color # HACK
 
   it 'can tell colors are the same' do
-    assert_equal ScorchedEarth::Services::CIE94.new.call(Color.black, Color.black), 0
+    assert_equal 0, ScorchedEarth::Services::CIE94.new.call(Color.black, Color.black)
   end
 
   it 'can tell colors are different' do
-    assert_equal ScorchedEarth::Services::CIE94.new.call(Color.black, Color.white), 9341.57053391457
+    assert_equal 9341.57053391457, ScorchedEarth::Services::CIE94.new.call(Color.black, Color.white)
+  end
+end
+
+describe ScorchedEarth::Services::Deform do
+  it 'reduces' do
+    assert_equal [10.0, 9.0, 10.0], ScorchedEarth::Services::Deform.new([10, 10, 10]).call(1, 1)
   end
 end
 
