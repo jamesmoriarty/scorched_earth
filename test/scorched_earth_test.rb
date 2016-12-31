@@ -1,15 +1,38 @@
 require 'test_helper'
 
+describe ScorchedEarth::Services::CIE94 do
+  Color = Java::JavaAwt::Color # HACK
+
+  it "can tell colors are the same"   do
+    assert_equal ScorchedEarth::Services::CIE94.new.call(Color.black, Color.black), 0
+  end
+
+
+  it "can tell colors are different" do
+    assert_equal ScorchedEarth::Services::CIE94.new.call(Color.black, Color.white), 9341.57053391457
+  end
+end
+
 describe ScorchedEarth::Game do
   before do
-    Color = Java::JavaAwt::Color # HACK
     @game = ScorchedEarth::Game.new(800, 600)
     @game.setup
+  end
+
+  it 'fires when clicked' do
+    @game.publish ScorchedEarth::Events::MouseMoved.new(0, 0)
+    @game.publish ScorchedEarth::Events::MousePressed.new(0, 0)
+    @game.publish ScorchedEarth::Events::MouseReleased.new(0, 0)
+
+    @game.update(1)
+
+    assert @game.objects.select { |object| object.is_a? ScorchedEarth::Shot }.size, 1
   end
 
   it 'changes player when mouse is released' do
     original_player = @game.current_player
     @game.publish ScorchedEarth::Events::MouseReleased.new(0, 0)
+
     @game.update(1)
 
     assert @game.current_player != original_player
