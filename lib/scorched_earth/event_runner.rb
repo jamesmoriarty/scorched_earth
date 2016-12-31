@@ -15,13 +15,17 @@ module ScorchedEarth
       subscribers << [klass, block]
     end
 
+    def run(event)
+      subscribers.each do |klass, block|
+        block.call event if event.is_a? klass
+      end
+    end
+
     def process!
       processing = Array.new(queue.size) { queue.pop }
 
       processing.each do |event|
-        subscribers.each do |klass, block|
-          block.call event if event.is_a? klass
-        end
+        run event
       end
     end
   end

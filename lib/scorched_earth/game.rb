@@ -8,9 +8,11 @@ require 'scorched_earth/objects/explosion'
 require 'scorched_earth/objects/mouse'
 require 'scorched_earth/event_runner'
 require 'scorched_earth/events/game_update'
+require 'scorched_earth/events/game_render'
 require 'scorched_earth/subscribers/game_over/timeout'
 require 'scorched_earth/subscribers/game_update/collisions'
 require 'scorched_earth/subscribers/game_update/delta'
+require 'scorched_earth/subscribers/game_render'
 require 'scorched_earth/subscribers/hit/deform'
 require 'scorched_earth/subscribers/hit/effect'
 require 'scorched_earth/subscribers/hit/radius'
@@ -53,15 +55,7 @@ module ScorchedEarth
     end
 
     def render(graphics)
-      graphics.set_color color_palette.get('sky')
-      graphics.fill_rect 0, 0, width, height
-
-      Renders::Mouse.new(mouse, current_player).call(graphics, color_palette)
-
-      objects.each { |object| Renders.find(object).call(graphics, color_palette) }
-      players.each { |player| Renders.find(player).call(graphics, color_palette) }
-
-      Renders::Map.new(array).call(graphics, color_palette)
+      event_runner.run Events::GameRender.new graphics
     end
 
     def publish(event)
