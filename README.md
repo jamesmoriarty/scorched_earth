@@ -1,9 +1,5 @@
 # ScorchedEarth
 
-[![Code Climate](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb/badges/gpa.svg)](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb) [![Test Coverage](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb/badges/coverage.svg)](https://codeclimate.com/github/jamesmoriarty/scorched-earth-rb/coverage)
-
-[![Gameplay Video](https://img.youtube.com/vi/BhI3Q4BRGig/0.jpg)](https://www.youtube.com/watch?v=BhI3Q4BRGig)
-
 A little [Scorched Earth](https://en.wikipedia.org/wiki/ScorchedEarth_Earth_&#40;video_game&#41;) clone in the Ruby Programming Language (JRuby). Now including a segue into procedurally generated color palettes:
 - [TriadMixing](http://devmag.org.za/2012/07/29/how-to-choose-colours-procedurally-algorithms/)
 - [CIE94](https://en.wikipedia.org/wiki/Color_difference#CIE94)
