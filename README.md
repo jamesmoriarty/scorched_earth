@@ -2,13 +2,9 @@
 
 ![Gem Version][1] ![Downloads][2]
 
-A little [Scorched Earth](https://en.wikipedia.org/wiki/ScorchedEarth_Earth_&#40;video_game&#41;) clone in the Ruby Programming Language (JRuby).
+A little [Scorched Earth](https://en.wikipedia.org/wiki/ScorchedEarth_Earth_&#40;video_game&#41;) clone in the Ruby Programming Language (JRuby). Now including a segue into procedurally generated color palettes utilizing [TriadMixing](http://devmag.org.za/2012/07/29/how-to-choose-colours-procedurally-algorithms/) abd [CIE94](https://en.wikipedia.org/wiki/Color_difference#CIE94).
 
-## Segue
-
-Now including a segue into procedurally generated color palettes:
-- [TriadMixing](http://devmag.org.za/2012/07/29/how-to-choose-colours-procedurally-algorithms/)
-- [CIE94](https://en.wikipedia.org/wiki/Color_difference#CIE94)
+## Screenshots
 
 ![Color Palettes](https://pbs.twimg.com/media/CsYukUuUMAECQG3.jpg)
 
