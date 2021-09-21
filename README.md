@@ -6,6 +6,8 @@ A little [Scorched Earth](https://en.wikipedia.org/wiki/ScorchedEarth_Earth_&#40
 
 ## Screenshots
 
+https://user-images.githubusercontent.com/96487/134137312-dc63fd89-c410-4269-997d-69ae0a3f0ec7.mp4
+
 ![Color Palettes](https://pbs.twimg.com/media/CsYukUuUMAECQG3.jpg)
 
 ## Installation
